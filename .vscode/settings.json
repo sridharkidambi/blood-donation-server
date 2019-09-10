@@ -1,0 +1,6 @@
+{
+    "editor.fontSize": 13,
+    "search.exclude": {
+        "**/dist/": true
+    }
+}

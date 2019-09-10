@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "commonjs",
+        "lib": ["dom", "es2017"],
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "noImplicitAny": true,
+
+        /* Module Resolution Options */
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+
+        /* Experimental Options */
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        /* Advanced Options */
+        "resolveJsonModule": true
+    }
+}
