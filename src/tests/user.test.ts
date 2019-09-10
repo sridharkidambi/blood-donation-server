@@ -21,7 +21,7 @@ describe('User entity', () => {
         john.firstName = 'John';
         john.lastName = 'Doe';
         john.emailAddress = 'john@test.com';
-        john.password = 'password';
+        john.phoneNumber = '9988776655';
         return john;
     };
 
@@ -30,12 +30,5 @@ describe('User entity', () => {
         await user.save();
 
         expect(user.id).toBeTruthy();
-    });
-
-    it('should hash password', async () => {
-        const user = new User();
-        const plainPassword = 'password';
-        user.password = plainPassword;
-        expect(user.password).not.toEqual(plainPassword);
     });
 });

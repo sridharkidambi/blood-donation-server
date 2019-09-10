@@ -49,7 +49,7 @@ describe('user endpoint', () => {
                 .post('/api/v1/user')
                 .send({
                     emailAddress: 'john@example.com',
-                    password: 'password',
+                    phoneNumber: '9988776655',
                     firstName: 'John'
                 });
             expect(response.status).toEqual(201);
@@ -60,8 +60,8 @@ describe('user endpoint', () => {
             const firstResponse = await request(router)
                 .post('/api/v1/user')
                 .send({
-                    emailAddress: 'john@example.com',
-                    password: 'password',
+                    emailAddress: 'john2@example.com',
+                    phoneNumber: '9988776655',
                     firstName: 'John'
                 });
             expect(firstResponse.status).toEqual(201);
@@ -82,8 +82,8 @@ describe('user endpoint', () => {
             const user = new User();
             user.id = 1;
             user.emailAddress = 'test@email.com';
+            user.phoneNumber = '9988776655';
             user.firstName = 'John';
-            user.password = 'dummy-password';
 
             await user.save();
 
