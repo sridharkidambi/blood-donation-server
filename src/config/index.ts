@@ -13,6 +13,7 @@ export class Config {
     dbUser: string;
     dbPassword: string;
     dbPort: number;
+    msg91AuthKey: string;
 
     constructor() {
         this.env = process.env.NODE_ENV!;
@@ -23,6 +24,7 @@ export class Config {
         this.dbUser = process.env.DB_USER!;
         this.dbPassword = process.env.DB_PASSWORD!;
         this.dbPort = +process.env.DB_PORT!;
+        this.msg91AuthKey = process.env.MSG91_AUTH_KEY!;
     }
 
     get isDevelopment() {

@@ -1,3 +1,4 @@
 import userRoutes from './user';
+import smsRoutes from './sms';
 
-export default [...userRoutes];
+export default [...userRoutes, ...smsRoutes];

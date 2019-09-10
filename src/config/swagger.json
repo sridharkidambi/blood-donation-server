@@ -51,7 +51,7 @@
         "schemas": {
             "CreateUserSchema": {
                 "type": "object",
-                "required": ["firstName", "emailAddress", "password"],
+                "required": ["firstName", "emailAddress", "phoneNumber"],
                 "properties": {
                     "firstName": {
                         "type": "string"
@@ -62,7 +62,7 @@
                     "emailAddress": {
                         "type": "string"
                     },
-                    "password": {
+                    "phoneNumber": {
                         "type": "string"
                     }
                 }

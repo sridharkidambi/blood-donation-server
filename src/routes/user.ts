@@ -13,11 +13,6 @@ export default [
     },
     {
         path: '/user',
-        method: 'post',
-        handler: [createUserValidator, createUser]
-    },
-    {
-        path: '/user',
         method: 'put',
         handler: [updateUserValidator, updateUser]
     },
@@ -25,5 +20,10 @@ export default [
         path: '/login',
         method: 'post',
         handler: [loginValidator, login]
+    },
+    {
+        path: '/register',
+        method: 'post',
+        handler: [createUserValidator, createUser]
     }
 ];
