@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import BaseEntity from './base-entity';
+import Donor from './donor';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -14,4 +15,8 @@ export default class User extends BaseEntity {
 
     @Column({ name: 'phone_number', unique: true })
     phoneNumber!: string;
+
+    @OneToOne(type => Donor)
+    @JoinColumn({ name: 'donor_id' })
+    donor!: Donor;
 }

@@ -8,11 +8,9 @@ export const otpRequestHandler = asyncMiddleware(
         try {
             const otpResponse = await sendOTP(req.body.phoneNumber);
             if (otpResponse.data.type === 'success') {
-                return res.status(200);
+                return res.status(200).send();
             }
-            throw HttpError.internalServerError('Unable to sent OTP');
-        } catch (e) {
-            throw HttpError.internalServerError('Unable to sent OTP');
-        }
+        } catch (e) {}
+        throw HttpError.internalServerError('Unable to sent OTP');
     }
 );
