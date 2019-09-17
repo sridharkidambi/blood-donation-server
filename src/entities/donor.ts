@@ -1,8 +1,9 @@
 import BaseEntity from './base-entity';
-import { OneToOne, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import User from './user';
 import BloodType from '../utils/blood-types';
 
+@Entity()
 export default class Donor extends BaseEntity {
     @OneToOne(type => User, user => user.donor)
     user!: User;
