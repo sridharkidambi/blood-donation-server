@@ -1,4 +1,4 @@
-import { anyFalsy } from '../utils';
+import { anyFalsy } from './utils';
 
 // load the conifg from .env files
 require('custom-env').env(process.env.NODE_ENV || 'development');

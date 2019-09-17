@@ -22,7 +22,7 @@ export default [
         handler: [loginValidator, login]
     },
     {
-        path: '/register',
+        path: '/user',
         method: 'post',
         handler: [createUserValidator, createUser]
     }

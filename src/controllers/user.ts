@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { plainToClass, classToPlain } from 'class-transformer';
-import User from '../entities/user';
+import User from '../models/user';
 import HttpError from '../errors/http-error';
 import * as userService from '../service/user';
 import { asyncMiddleware } from '../middlewares/common';

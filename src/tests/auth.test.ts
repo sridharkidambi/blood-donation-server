@@ -1,5 +1,3 @@
-import config from '../config';
-import User from '../entities/user';
 import { generateToken, verifyToken } from '../middlewares/auth';
 
 describe('JWT authentication', () => {

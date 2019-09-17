@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import { entities } from './entities';
+import { entities } from './models';
 import config from './config';
 
 export const getConnection = () => {

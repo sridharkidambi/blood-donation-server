@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import jwt from 'jsonwebtoken';
 import HttpError from '../errors/http-error';
-import User from '../entities/user';
+import User from '../models/user';
 import TokenPayload from '../models/token-payload';
 import config from '../config';
 

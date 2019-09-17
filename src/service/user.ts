@@ -1,4 +1,4 @@
-import User from '../entities/user';
+import User from '../models/user';
 
 export const getUserByEmail = async (emailAddress: string) =>
     await User.findOne({ emailAddress });
