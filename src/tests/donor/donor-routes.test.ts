@@ -49,7 +49,6 @@ describe('donor endpoint', () => {
                 .post('/api/v1/donor')
                 .send(donorParams);
 
-            await user.reload();
             const donor = await user.donor;
 
             expect(response.status).toBe(201);
