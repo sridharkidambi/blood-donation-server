@@ -18,7 +18,6 @@ describe('donor endpoint', () => {
     });
 
     afterAll(async () => {
-        await db.query('TRUNCATE TABLE "user" CASCADE;');
         await db.close();
     });
 

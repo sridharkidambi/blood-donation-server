@@ -12,7 +12,7 @@ describe('user endpoint', () => {
     });
 
     afterEach(async () => {
-        await User.clear();
+        await db.query('TRUNCATE TABLE "user" CASCADE;');
     });
 
     afterAll(async () => {

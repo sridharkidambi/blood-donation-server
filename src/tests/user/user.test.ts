@@ -6,21 +6,24 @@ import { dummyUser } from '../dummies';
 describe('User entity', () => {
     let db: Connection;
 
-    beforeEach(async done => {
+    beforeAll(async () => {
         db = await getConnection();
-        done();
     });
 
-    afterEach(async done => {
-        await User.clear();
+    afterEach(async () => {
+        await db.query('TRUNCATE TABLE "user" CASCADE;');
+    });
+
+    afterAll(async () => {
         await db.close();
-        done();
     });
 
-    it('should create a row in database table', async () => {
+    it('should create a row in database table', async done => {
         const user = dummyUser();
         await user.save();
 
         expect(user.id).toBeTruthy();
+
+        done();
     });
 });
