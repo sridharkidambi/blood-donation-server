@@ -1,6 +1,7 @@
 import { getConnection } from '../../db';
 import { Connection } from 'typeorm';
 import User from '../../models/user';
+import { dummyUser } from '../dummies';
 
 describe('User entity', () => {
     let db: Connection;
@@ -16,17 +17,8 @@ describe('User entity', () => {
         done();
     });
 
-    const getJohn = () => {
-        const john = new User();
-        john.firstName = 'John';
-        john.lastName = 'Doe';
-        john.emailAddress = 'john@test.com';
-        john.phoneNumber = '9988776655';
-        return john;
-    };
-
     it('should create a row in database table', async () => {
-        const user = getJohn();
+        const user = dummyUser();
         await user.save();
 
         expect(user.id).toBeTruthy();

@@ -9,7 +9,7 @@ export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params['user_id'];
         const user = await userService.getUserById(userId);
-        if (user === null) {
+        if (!user) {
             return next(new HttpError(404, 'User not found'));
         }
         res.status(200).json(classToPlain(user));

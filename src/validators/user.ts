@@ -1,6 +1,8 @@
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { validate } from '../middlewares/common';
 import { getUserByEmail, getUserByPhoneNumber } from '../service/user';
+
+export const getUserValidator = validate(param('user_id').isNumeric());
 
 export const createUserValidator = validate(
     body('phoneNumber').isMobilePhone('en-IN'),

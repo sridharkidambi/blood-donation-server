@@ -2,17 +2,27 @@ import BaseEntity from './base-entity';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import User from './user';
 import BloodType from './blood-types';
+import Gender from './gender';
 
 @Entity()
 export default class Donor extends BaseEntity {
-    @OneToOne(type => User, user => user.donor)
+    @OneToOne(type => User, user => user.donor, {
+        eager: true,
+        nullable: false,
+        cascade: true,
+        onDelete: 'CASCADE'
+    })
+    @JoinColumn({ name: 'user_id' })
     user!: User;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     address!: string;
 
     @Column()
     locality!: string;
+
+    @Column()
+    city!: string;
 
     @Column()
     state!: string;
@@ -20,8 +30,8 @@ export default class Donor extends BaseEntity {
     @Column()
     pincode!: number;
 
-    @Column({ length: 16 })
-    gender!: string;
+    @Column()
+    gender!: Gender;
 
     @Column()
     dob!: Date;
@@ -30,8 +40,8 @@ export default class Donor extends BaseEntity {
     bloodType!: BloodType;
 
     @Column({ type: 'float8' })
-    longitude!: number;
+    latitude!: number;
 
     @Column({ type: 'float8' })
-    latitude!: number;
+    longitude!: number;
 }

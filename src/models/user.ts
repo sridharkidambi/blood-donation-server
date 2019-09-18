@@ -16,7 +16,6 @@ export default class User extends BaseEntity {
     @Column({ name: 'phone_number', unique: true })
     phoneNumber!: string;
 
-    @OneToOne(type => Donor)
-    @JoinColumn({ name: 'donor_id' })
-    donor!: Donor;
+    @OneToOne(type => Donor, donor => donor.user)
+    donor!: Promise<Donor>;
 }

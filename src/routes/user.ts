@@ -1,5 +1,6 @@
 import { getUser, createUser, updateUser, login } from '../controllers/user';
 import {
+    getUserValidator,
     createUserValidator,
     loginValidator,
     updateUserValidator
@@ -9,7 +10,7 @@ export default [
     {
         path: '/user/:user_id',
         method: 'get',
-        handler: [getUser]
+        handler: [getUserValidator, getUser]
     },
     {
         path: '/user',

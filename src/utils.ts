@@ -34,3 +34,5 @@ export const anyFalsy = (...values: any[]) => {
     }
     return false;
 };
+
+export const getValues = (obj: any) => Object.keys(obj).map(o => obj[o]);
