@@ -4,7 +4,7 @@ import { getUserByEmail, getUserByPhoneNumber } from '../service/user';
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
-export const createUserValidator = validate(
+export const registerUserValidator = validate(
     body('phoneNumber').isMobilePhone('en-IN'),
     body('emailAddress').isEmail(),
     body('firstName').isLength({ min: 3, max: 20 }),
@@ -24,7 +24,8 @@ export const createUserValidator = validate(
             if (user) throw new Error();
             return true;
         })
-        .withMessage('Given phone number is already registered')
+        .withMessage('Given phone number is already registered'),
+    body('otp').isLength({ min: 6, max: 6 })
 );
 
 export const updateUserValidator = validate(

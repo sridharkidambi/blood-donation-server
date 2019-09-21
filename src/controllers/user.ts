@@ -2,29 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import { plainToClass, classToPlain } from 'class-transformer';
 import User from '../models/user';
 import HttpError from '../errors/http-error';
-import * as userService from '../service/user';
+import * as service from '../service/user';
 import { asyncMiddleware } from '../middlewares/common';
 
 export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params['user_id'];
-        const user = await userService.getUserById(userId);
+        const user = await service.getUserById(userId);
         if (!user) {
             return next(new HttpError(404, 'User not found'));
         }
         res.status(200).json(classToPlain(user));
-    }
-);
-
-export const createUser = asyncMiddleware(
-    async (req: Request, res: Response, next: NextFunction) => {
-        const params: User = plainToClass(User, req.body);
-        try {
-            const user = await userService.createUser(params);
-            res.status(201).json(classToPlain(user));
-        } catch (e) {
-            throw new HttpError(500, e.message);
-        }
     }
 );
 
@@ -48,3 +36,19 @@ export const login = async (
     res.sendStatus(200);
     // TODO
 };
+
+export const registerUser = asyncMiddleware(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const user = plainToClass(User, req.body);
+        const otp = req.body.otp;
+        try {
+            const response = await service.createUser(user, otp);
+            res.status(201)
+                .json(classToPlain(response))
+                .send();
+        } catch (e) {
+            console.log(e);
+            throw new HttpError(422, 'Failed to register user', [e]);
+        }
+    }
+);

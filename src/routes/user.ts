@@ -1,30 +1,25 @@
-import { getUser, createUser, updateUser, login } from '../controllers/user';
-import {
-    getUserValidator,
-    createUserValidator,
-    loginValidator,
-    updateUserValidator
-} from '../validators/user';
+import * as controller from '../controllers/user';
+import * as validator from '../validators/user';
 
 export default [
     {
         path: '/user/:user_id',
         method: 'get',
-        handler: [getUserValidator, getUser]
+        handler: [validator.getUserValidator, controller.getUser]
     },
     {
         path: '/user',
         method: 'put',
-        handler: [updateUserValidator, updateUser]
+        handler: [validator.updateUserValidator, controller.updateUser]
     },
     {
         path: '/login',
         method: 'post',
-        handler: [loginValidator, login]
+        handler: [validator.loginValidator, controller.login]
     },
     {
-        path: '/user',
+        path: '/register',
         method: 'post',
-        handler: [createUserValidator, createUser]
+        handler: [validator.registerUserValidator, controller.registerUser]
     }
 ];

@@ -1,5 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { validationResult, ValidationChain } from 'express-validator';
+import {
+    validationResult,
+    ValidationChain,
+    ValidationError
+} from 'express-validator';
 import config from '../config';
 import HttpError from '../errors/http-error';
 import cors from 'cors';
@@ -25,7 +29,9 @@ export const validate = (...validations: ValidationChain[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         await Promise.all(validations.map(validation => validation.run(req)));
 
-        const errors = validationResult(req);
+        let errors = validationResult(req).formatWith(
+            e => `${e.param}: ${e.msg}`
+        );
         if (errors.isEmpty()) {
             return next();
         }
