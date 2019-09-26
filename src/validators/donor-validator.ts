@@ -2,7 +2,7 @@ import { validate } from '../middlewares/common';
 import { body } from 'express-validator';
 import Gender from '../models/gender';
 import BloodType from '../models/blood-types';
-import { getUserById } from '../service/user';
+import { getUserById } from '../service/user-service';
 import { getValues } from '../utils';
 
 const validGenders = getValues(Gender);

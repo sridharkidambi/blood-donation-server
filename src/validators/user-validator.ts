@@ -1,6 +1,6 @@
 import { body, param } from 'express-validator';
 import { validate } from '../middlewares/common';
-import { getUserByEmail, getUserByPhoneNumber } from '../service/user';
+import { getUserByEmail, getUserByPhoneNumber } from '../service/user-service';
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
@@ -40,4 +40,7 @@ export const updateUserValidator = validate(
         .isLength({ min: 3, max: 20 })
 );
 
-export const loginValidator = validate(body('emailAddress').isEmail());
+export const loginValidator = validate(
+    body('phoneNumber').isMobilePhone('en-IN'),
+    body('otp').isLength({ min: 6, max: 6 })
+);

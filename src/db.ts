@@ -11,7 +11,7 @@ export const getConnection = () => {
         password: config.dbPassword,
         database: config.dbName,
         entities: entities,
-        synchronize: true,
-        logging: config.isDevelopment
+        synchronize: true
+        // logging: config.isDevelopment
     });
 };

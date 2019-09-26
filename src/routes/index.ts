@@ -1,5 +1,5 @@
-import userRoutes from './user';
-import donorRoutes from './donor';
-import smsRoutes from './sms';
+import userRoutes from './user-routes';
+import donorRoutes from './donor-routes';
+import smsRoutes from './sms-routes';
 
 export default [...userRoutes, ...donorRoutes, ...smsRoutes];

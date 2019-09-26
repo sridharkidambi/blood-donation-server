@@ -1,5 +1,5 @@
-import * as validator from '../validators/donor';
-import * as controller from '../controllers/donor';
+import * as validator from '../validators/donor-validator';
+import * as controller from '../controllers/donor-controller';
 
 export default [
     {

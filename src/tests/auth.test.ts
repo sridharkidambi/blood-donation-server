@@ -1,4 +1,4 @@
-import { generateToken, verifyToken } from '../middlewares/auth';
+import { generateToken, verifyToken } from '../middlewares/auth-middleware';
 
 describe('JWT authentication', () => {
     describe('Token verification', () => {

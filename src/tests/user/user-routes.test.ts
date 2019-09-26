@@ -40,13 +40,13 @@ describe('user endpoint', () => {
 
     describe('POST /user', () => {
         it('should respond 422 for invalid body', async () => {
-            const response = await request(router).post('/api/v1/user');
+            const response = await request(router).post('/api/v1/register');
             expect(response.status).toEqual(422);
         });
 
         it('should respond 201 and return the user', async () => {
             const response = await request(router)
-                .post('/api/v1/user')
+                .post('/api/v1/register')
                 .send({
                     emailAddress: 'john@example.com',
                     phoneNumber: '9988776655',
@@ -58,7 +58,7 @@ describe('user endpoint', () => {
 
         it('should respond 422 for duplicate registration', async () => {
             const firstResponse = await request(router)
-                .post('/api/v1/user')
+                .post('/api/v1/register')
                 .send({
                     emailAddress: 'john2@example.com',
                     phoneNumber: '9988776655',
@@ -67,7 +67,7 @@ describe('user endpoint', () => {
             expect(firstResponse.status).toEqual(201);
 
             const secondResponse = await request(router)
-                .post('/api/v1/user')
+                .post('/api/v1/register')
                 .send({
                     emailAddress: 'john@example.com',
                     password: 'password',

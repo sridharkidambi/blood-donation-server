@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { plainToClass, classToPlain } from 'class-transformer';
 import User from '../models/user';
 import HttpError from '../errors/http-error';
-import * as service from '../service/user';
+import * as service from '../service/user-service';
 import { asyncMiddleware } from '../middlewares/common';
 
 export const getUser = asyncMiddleware(
@@ -47,7 +47,6 @@ export const registerUser = asyncMiddleware(
                 .json(classToPlain(response))
                 .send();
         } catch (e) {
-            console.log(e);
             throw new HttpError(422, 'Failed to register user', [e]);
         }
     }

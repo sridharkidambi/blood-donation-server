@@ -1,5 +1,5 @@
 import User from '../models/user';
-import * as smsService from './sms';
+import * as smsService from './sms-service';
 
 export const getUserByEmail = async (emailAddress: string) =>
     await User.findOne({ emailAddress });
