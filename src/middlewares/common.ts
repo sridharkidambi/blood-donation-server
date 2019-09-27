@@ -49,3 +49,9 @@ export const asyncMiddleware = (fn: Function) => (
 ) => {
     Promise.resolve(fn(req, res, next)).catch(next);
 };
+
+export const slowDown = (delayInMs: number) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        setTimeout(() => next(), delayInMs);
+    };
+};

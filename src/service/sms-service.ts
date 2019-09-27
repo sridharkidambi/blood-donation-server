@@ -26,6 +26,7 @@ export const verifyOtp = async (
     phoneNumber: string,
     otp: number
 ): Promise<OtpVerificationResult> => {
+    //TODO: REMOVE
     if (otp == 999999) {
         return OtpVerificationResult.verified;
     }

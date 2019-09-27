@@ -11,12 +11,9 @@ const handle404Error = (router: Router) => {
     });
 };
 
-const handleClientError = (router: Router) => {
+const handleError = (router: Router) => {
     router.use(
         (error: Error, req: Request, res: Response, next: NextFunction) => {
-            if (!isClientError(error)) {
-                return next(error);
-            }
             console.warn(error);
             const httpError = error as HttpError;
             const response: ErrorResponse = {
@@ -28,25 +25,8 @@ const handleClientError = (router: Router) => {
     );
 };
 
-// Sends the stack trace of the error for easier debugging
-const handleServerError = (router: Router) => {
-    router.use(
-        (error: Error, req: Request, res: Response, next: NextFunction) => {
-            console.error(error);
-            if (config.isDevelopment) {
-                res.status(500).json(error.stack);
-                return;
-            }
-            const response: ErrorResponse = {
-                message: error.message
-            };
-            res.status(500).json(response);
-        }
-    );
-};
-
 const isClientError = (error: Error): boolean => {
     return error instanceof HttpError && error.statusCode < 500;
 };
 
-export default [handle404Error, handleClientError, handleServerError];
+export default [handle404Error, handleError];
