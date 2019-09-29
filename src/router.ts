@@ -2,7 +2,7 @@ import express from 'express';
 import middlewares from './middlewares';
 import errorHandlers from './middlewares/error-handler';
 import routes from './routes';
-import { applyMiddlewares, applyRoutes } from './utils';
+import { applyMiddlewares, applyRoutes } from './common/utils';
 import { slowDown } from './middlewares/common';
 
 const router = express();

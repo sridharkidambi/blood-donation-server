@@ -1,4 +1,4 @@
-import * as validator from '../validators/donor-validator';
+import * as validator from './donor-validator';
 import * as controller from '../donor/donor-controller';
 
 export default [

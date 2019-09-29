@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import Gender from '../models/gender';
 import BloodType from '../models/blood-types';
 import { getUserById } from '../user/user-service';
-import { getValues } from '../utils';
+import { getValues } from '../common/utils';
 
 const validGenders = getValues(Gender);
 const validBloodTypes = getValues(BloodType);
