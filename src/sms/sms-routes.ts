@@ -1,5 +1,5 @@
-import { otpRequestValidator } from '../validators/sms-validator';
-import { otpRequestHandler } from '../controllers/sms-controller';
+import { otpRequestValidator } from './sms-validator';
+import { otpRequestHandler } from './sms-controller';
 
 export default [
     {

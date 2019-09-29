@@ -1,6 +1,6 @@
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
-import BaseEntity from './base-entity';
-import Donor from './donor';
+import BaseEntity from '../models/base-entity';
+import Donor from '../donor/donor';
 
 @Entity()
 export default class User extends BaseEntity {

@@ -2,8 +2,8 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 import router from '../../router';
 import { getConnection } from '../../db';
-import User from '../../models/user';
-import Donor from '../../models/donor';
+import User from '../../user/user-model';
+import Donor from '../../donor/donor';
 import { dummyUser } from '../dummies';
 
 describe('donor endpoint', () => {

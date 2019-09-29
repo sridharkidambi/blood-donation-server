@@ -1,6 +1,5 @@
 import { getConnection } from '../../db';
 import { Connection } from 'typeorm';
-import User from '../../models/user';
 import { dummyUser } from '../dummies';
 
 describe('User entity', () => {

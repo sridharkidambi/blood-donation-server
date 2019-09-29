@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { plainToClass, classToPlain } from 'class-transformer';
-import User from '../models/user';
+import User from './user-model';
 import HttpError from '../errors/http-error';
-import * as service from '../service/user-service';
+import * as service from './user-service';
 import { asyncMiddleware } from '../middlewares/common';
 
 export const getUser = asyncMiddleware(
@@ -32,9 +32,9 @@ export const login = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { email, password } = req.body;
+    const { phoneNumber, otp } = req.body;
+
     res.sendStatus(200);
-    // TODO
 };
 
 export const registerUser = asyncMiddleware(
@@ -42,7 +42,7 @@ export const registerUser = asyncMiddleware(
         const user = plainToClass(User, req.body);
         const otp = req.body.otp;
         try {
-            const response = await service.createUser(user, otp);
+            const response = await service.verifyAndCreateUser(user, otp);
             res.status(201)
                 .json(classToPlain(response))
                 .send();

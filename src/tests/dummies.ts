@@ -1,4 +1,4 @@
-import User from '../models/user';
+import User from '../user/user-model';
 
 export const dummyUser = () => {
     const john = new User();

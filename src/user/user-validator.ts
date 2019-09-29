@@ -1,6 +1,6 @@
 import { body, param } from 'express-validator';
 import { validate } from '../middlewares/common';
-import { getUserByEmail, getUserByPhoneNumber } from '../service/user-service';
+import { getUserByEmail, getUserByPhoneNumber } from './user-service';
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
