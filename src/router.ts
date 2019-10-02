@@ -6,7 +6,7 @@ import { applyMiddlewares, applyRoutes } from './common/utils';
 import { slowDown } from './middlewares/common';
 
 const router = express();
-router.use(slowDown(2000));
+// router.use(slowDown(2000));
 applyMiddlewares(middlewares, router);
 applyRoutes(routes, router, '/api/v1');
 applyMiddlewares(errorHandlers, router);

@@ -26,8 +26,6 @@ type Route = {
     handler: RequestHandler | RequestHandler[];
 };
 
-export const encrypt = (value: string) => bcrypt.hashSync(value, 10);
-
 export const anyFalsy = (...values: any[]) => {
     for (let v of values) {
         if (!v) return true;

@@ -27,15 +27,16 @@ export const updateUser = async (
     // TODO
 };
 
-export const login = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    const { phoneNumber, otp } = req.body;
+export const login = asyncMiddleware(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { phoneNumber, password } = req.body;
+        const token = await service.login(phoneNumber, password);
 
-    res.sendStatus(200);
-};
+        if (!token) throw HttpError.unauthorized('Incorrect credentials');
+
+        res.status(200).json({ token });
+    }
+);
 
 export const registerUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {

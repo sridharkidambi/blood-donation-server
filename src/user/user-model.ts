@@ -1,13 +1,5 @@
-import {
-    Entity,
-    Column,
-    OneToOne,
-    JoinColumn,
-    BeforeInsert,
-    BeforeUpdate,
-    AfterLoad
-} from 'typeorm';
-import bcrypt from 'bcrypt';
+import { Entity, Column, OneToOne } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import BaseEntity from '../models/base-entity';
 import Donor from '../donor/donor';
 
@@ -26,6 +18,7 @@ export default class User extends BaseEntity {
     phoneNumber!: string;
 
     @Column()
+    @Exclude({ toPlainOnly: true })
     password!: string;
 
     @OneToOne(type => Donor, donor => donor.user)

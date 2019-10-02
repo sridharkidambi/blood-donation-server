@@ -6,6 +6,10 @@ export default class HttpError extends Error {
         return new HttpError(500, message, errors);
     }
 
+    static unauthorized(message: string, errors?: any[]) {
+        return new HttpError(401, message, errors);
+    }
+
     constructor(statusCode: number, message: string, errors?: any[]) {
         super(message);
         this.statusCode = statusCode;
