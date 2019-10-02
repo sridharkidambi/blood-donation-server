@@ -32,7 +32,10 @@ export const login = async (phoneNumber: string, password: string) => {
     const passwordMatch = await verifyHash(password, user.password);
     if (!passwordMatch) return null;
 
-    return generateToken({ userId: user.id });
+    const userData = classToPlain(user);
+    (userData as any).token = generateToken({ userId: user.id });
+
+    return userData;
 };
 
 export const loginViaEmail = async (

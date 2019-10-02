@@ -30,11 +30,13 @@ export const updateUser = async (
 export const login = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const { phoneNumber, password } = req.body;
-        const token = await service.login(phoneNumber, password);
+        const userAndToken = await service.login(phoneNumber, password);
 
-        if (!token) throw HttpError.unauthorized('Incorrect credentials');
+        if (!userAndToken) {
+            throw HttpError.unauthorized('Incorrect credentials');
+        }
 
-        res.status(200).json({ token });
+        res.status(200).json(userAndToken);
     }
 );
 
