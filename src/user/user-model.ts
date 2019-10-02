@@ -1,4 +1,13 @@
-import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
+import {
+    Entity,
+    Column,
+    OneToOne,
+    JoinColumn,
+    BeforeInsert,
+    BeforeUpdate,
+    AfterLoad
+} from 'typeorm';
+import bcrypt from 'bcrypt';
 import BaseEntity from '../models/base-entity';
 import Donor from '../donor/donor';
 
@@ -15,6 +24,9 @@ export default class User extends BaseEntity {
 
     @Column({ name: 'phone_number', unique: true })
     phoneNumber!: string;
+
+    @Column()
+    password!: string;
 
     @OneToOne(type => Donor, donor => donor.user)
     donor!: Promise<Donor>;

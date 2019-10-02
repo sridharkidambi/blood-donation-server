@@ -42,7 +42,7 @@ export const registerUser = asyncMiddleware(
         const user = plainToClass(User, req.body);
         const otp = req.body.otp;
         try {
-            const response = await service.verifyAndCreateUser(user, otp);
+            const response = await service.createAndLoginUser(user, otp);
             res.status(201)
                 .json(classToPlain(response))
                 .send();

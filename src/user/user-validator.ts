@@ -4,43 +4,41 @@ import { getUserByEmail, getUserByPhoneNumber } from './user-service';
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
+const phoneNumberValidator = body('phoneNumber').isMobilePhone('en-IN');
+const uniquePhoneNumberValidator = phoneNumberValidator
+    .custom(async value => {
+        const user = await getUserByPhoneNumber(value);
+        if (user) throw new Error();
+        return true;
+    })
+    .withMessage('Given phone number is already registered');
+const emailValidator = body('emailAddress')
+    .isEmail()
+    .withMessage('Invalid email address');
+const uniqueemailValidator = emailValidator
+    .custom(async value => {
+        const user = await getUserByEmail(value);
+        if (user) throw new Error();
+        return true;
+    })
+    .withMessage('Given email is already registered');
+const firstNameValidator = body('firstName').isLength({ min: 3, max: 20 });
+const lastNameValidator = body('lastName')
+    .optional()
+    .isLength({ min: 3, max: 20 });
+const passwordValidator = body('password').isLength({ min: 6, max: 100 });
+
 export const registerUserValidator = validate(
-    body('phoneNumber').isMobilePhone('en-IN'),
-    body('emailAddress').isEmail(),
-    body('firstName').isLength({ min: 3, max: 20 }),
-    body('lastName')
-        .optional()
-        .isLength({ min: 3, max: 20 }),
-    body('emailAddress')
-        .custom(async value => {
-            const user = await getUserByEmail(value);
-            if (user) throw new Error();
-            return true;
-        })
-        .withMessage('Given email is already registered'),
-    body('phoneNumber')
-        .custom(async value => {
-            const user = await getUserByPhoneNumber(value);
-            if (user) throw new Error();
-            return true;
-        })
-        .withMessage('Given phone number is already registered'),
-    body('otp').isLength({ min: 6, max: 6 })
+    uniquePhoneNumberValidator,
+    uniqueemailValidator,
+    firstNameValidator,
+    lastNameValidator,
+    passwordValidator
 );
 
 export const updateUserValidator = validate(
-    body('emailAddress')
-        .isEmail()
-        .optional(),
-    body('firstName')
-        .isLength({ min: 3, max: 20 })
-        .optional(),
-    body('lastName')
-        .optional()
-        .isLength({ min: 3, max: 20 })
+    firstNameValidator,
+    lastNameValidator
 );
 
-export const loginValidator = validate(
-    body('phoneNumber').isMobilePhone('en-IN'),
-    body('otp').isLength({ min: 6, max: 6 })
-);
+export const loginValidator = validate(phoneNumberValidator, passwordValidator);
