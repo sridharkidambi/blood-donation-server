@@ -15,18 +15,16 @@ const handleError = (router: Router) => {
     router.use(
         (error: Error, req: Request, res: Response, next: NextFunction) => {
             console.warn(error);
-            const httpError = error as HttpError;
-            const response: ErrorResponse = {
-                message: httpError.message,
-                errors: httpError.errors
-            };
-            res.status(httpError.statusCode).json(response);
+            if (error instanceof HttpError) {
+                const response: ErrorResponse = {
+                    message: error.message,
+                    errors: error.errors
+                };
+                return res.status(error.statusCode).json(response);
+            }
+            res.status(500).send();
         }
     );
-};
-
-const isClientError = (error: Error): boolean => {
-    return error instanceof HttpError && error.statusCode < 500;
 };
 
 export default [handle404Error, handleError];

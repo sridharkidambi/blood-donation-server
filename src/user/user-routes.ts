@@ -15,11 +15,13 @@ export default [
     {
         path: '/login',
         method: 'post',
+        noAuth: true,
         handler: [validator.loginValidator, controller.login]
     },
     {
         path: '/register',
         method: 'post',
+        noAuth: true,
         handler: [validator.registerUserValidator, controller.registerUser]
     }
 ];

@@ -1,4 +1,4 @@
-import { Router, RequestHandler } from 'express';
+import { Router, RequestHandler, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 
 export const applyMiddlewares = (
@@ -11,18 +11,24 @@ type MiddlewareWrapper = (router: Router) => void;
 export const applyRoutes = (
     routes: Route[],
     router: Router,
+    authMiddleware: RequestHandler,
     namespace: string = '' // a prefix for all the routes defined
 ) => {
     routes.forEach(route => {
-        const { method, handler } = route;
+        const { method, handler, noAuth } = route;
         const path = namespace + route.path;
-        (router as any)[method](path, handler);
+        if (noAuth) {
+            (router as any)[method](path, handler);
+        } else {
+            (router as any)[method](path, authMiddleware, handler);
+        }
     });
 };
 
 type Route = {
     path: string;
     method: string;
+    noAuth?: boolean;
     handler: RequestHandler | RequestHandler[];
 };
 

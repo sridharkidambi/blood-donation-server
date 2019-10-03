@@ -9,7 +9,6 @@ const validGenders = getValues(Gender);
 const validBloodTypes = getValues(BloodType);
 
 export const createDonorValidator = validate(
-    body('userId').isNumeric(),
     body('locality').isLength({ min: 3 }),
     body('state').isLength({ min: 3 }),
     body('pincode')
