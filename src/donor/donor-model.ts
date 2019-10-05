@@ -3,11 +3,11 @@ import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import User from '../user/user-model';
 import BloodType from '../models/blood-types';
 import Gender from '../models/gender';
+import Location from '../common/orm/location';
 
 @Entity()
 export default class Donor extends BaseEntity {
     @OneToOne(type => User, user => user.donor, {
-        eager: true,
         nullable: false,
         cascade: true,
         onDelete: 'CASCADE'
@@ -39,9 +39,6 @@ export default class Donor extends BaseEntity {
     @Column({ name: 'blood_type' })
     bloodType!: BloodType;
 
-    @Column({ type: 'float8' })
-    latitude!: number;
-
-    @Column({ type: 'float8' })
-    longitude!: number;
+    @Column(type => Location, { prefix: '' })
+    location!: Location;
 }

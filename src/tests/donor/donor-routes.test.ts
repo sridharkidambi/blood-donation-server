@@ -3,7 +3,7 @@ import { Connection } from 'typeorm';
 import router from '../../router';
 import { getConnection } from '../../db';
 import User from '../../user/user-model';
-import Donor from '../../donor/donor';
+import Donor from '../../donor/donor-model';
 import { dummyUser } from '../dummies';
 
 describe('donor endpoint', () => {

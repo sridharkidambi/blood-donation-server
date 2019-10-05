@@ -1,5 +1,5 @@
 import { validate } from '../middlewares/common';
-import { body } from 'express-validator';
+import { body, header } from 'express-validator';
 import Gender from '../models/gender';
 import BloodType from '../models/blood-types';
 import { getUserById } from '../user/user-service';
@@ -17,19 +17,6 @@ export const createDonorValidator = validate(
     body('gender').isIn(validGenders),
     body('dob').isISO8601(),
     body('bloodType').isIn(validBloodTypes),
-    body('longitude').isFloat(),
-    body('latitude').isFloat(),
-    body('userId').custom(async value => {
-        const user = await getUserById(value);
-        if (!user) {
-            throw new Error('No user found for the given id');
-        }
-        const donor = await user.donor;
-        if (donor) {
-            throw new Error(
-                'A donor profile is already present for this user. Maybe you wanted to update?'
-            );
-        }
-        return true;
-    })
+    body('location.longitude').isFloat(),
+    body('location.latitude').isFloat()
 );

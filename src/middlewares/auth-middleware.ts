@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import HttpError from '../errors/http-error';
 import { verifyToken } from '../auth';
+import { getUserById } from '../user/user-service';
 
 export const verify = async (
     req: Request,
