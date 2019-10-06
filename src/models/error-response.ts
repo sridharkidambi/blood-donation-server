@@ -1,5 +1,4 @@
 export default interface ErrorResponse {
+    code: string;
     message: string;
-    description?: string;
-    errors?: any[];
 }

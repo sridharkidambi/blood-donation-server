@@ -1,18 +1,26 @@
 export default class HttpError extends Error {
     statusCode!: number;
-    errors?: any[];
+    errorCode!: string;
 
-    static internalServerError(message: string, errors?: any[]) {
-        return new HttpError(500, message, errors);
-    }
-
-    static unauthorized(message: string, errors?: any[]) {
-        return new HttpError(401, message, errors);
-    }
-
-    constructor(statusCode: number, message: string, errors?: any[]) {
+    constructor(statusCode: number, errorCode: string, message: string) {
         super(message);
         this.statusCode = statusCode;
-        this.errors = errors;
+        this.errorCode = errorCode;
+    }
+
+    static internalServerError(errorCode: string, message: string) {
+        return new HttpError(500, errorCode, message);
+    }
+
+    static unauthorized(errorCode: string, message: string) {
+        return new HttpError(401, errorCode, message);
+    }
+
+    static unprocessableEntity(errorCode: string, message: string) {
+        return new HttpError(422, errorCode, message);
+    }
+
+    static notFound(errorCode: string, message: string) {
+        return new HttpError(404, errorCode, message);
     }
 }

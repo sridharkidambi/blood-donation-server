@@ -9,6 +9,7 @@ import HttpError from '../errors/http-error';
 import cors from 'cors';
 import parser from 'body-parser';
 import morgan from 'morgan';
+import { ErrorCodes } from '../errors/ErrorCodes';
 
 export const handleCors = (router: Router) =>
     router.use(cors({ credentials: true, origin: true }));
@@ -36,8 +37,10 @@ export const validate = (...validations: ValidationChain[]) => {
             return next();
         }
 
-        const message = 'Required fields are missing or invalid.';
-        const error = new HttpError(422, message, errors.array());
+        const error = HttpError.unprocessableEntity(
+            ErrorCodes.validationError,
+            errors.array().join(',\n')
+        );
         next(error);
     };
 };

@@ -4,9 +4,8 @@ import Donor from './donor-model';
 import * as service from './donor-service';
 import { asyncMiddleware } from '../middlewares/common';
 import { getUserById } from '../user/user-service';
-import User from '../user/user-model';
-import { getConnection } from '../db';
 import HttpError from '../errors/http-error';
+import { ErrorCodes } from '../errors/ErrorCodes';
 
 export const createDonor = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +14,10 @@ export const createDonor = asyncMiddleware(
 
         const user = await getUserById(userId);
         if (await user!.isDonor()) {
-            throw new HttpError(422, 'Already registered for donation');
+            throw HttpError.unprocessableEntity(
+                ErrorCodes.alreadyExist,
+                'Already registered for donation'
+            );
         }
 
         await service.createDonor(donorInfo, userId);

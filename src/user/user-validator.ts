@@ -29,25 +29,17 @@ const uniqueEmailValidator = body('emailAddress')
     })
     .withMessage('Given email is already registered');
 
-const firstNameValidator = body('firstName').isLength({ min: 3, max: 20 });
-
-const lastNameValidator = body('lastName')
-    .optional()
-    .isLength({ min: 3, max: 20 });
+const nameValidator = body('name').isLength({ min: 3, max: 20 });
 
 const passwordValidator = body('password').isLength({ min: 6, max: 100 });
 
 export const registerUserValidator = validate(
     uniquePhoneNumberValidator,
     uniqueEmailValidator,
-    firstNameValidator,
-    lastNameValidator,
+    nameValidator,
     passwordValidator
 );
 
-export const updateUserValidator = validate(
-    firstNameValidator,
-    lastNameValidator
-);
+export const updateUserValidator = validate(nameValidator);
 
 export const loginValidator = validate(phoneNumberValidator, passwordValidator);

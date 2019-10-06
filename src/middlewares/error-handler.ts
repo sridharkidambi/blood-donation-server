@@ -2,12 +2,16 @@ import { Request, Response, NextFunction, Router } from 'express';
 import ErrorResponse from '../models/error-response';
 import HttpError from '../errors/http-error';
 import config from '../config';
+import { ErrorCodes, ErrorMessage } from '../errors/ErrorCodes';
 
 // this is the last middleware and hence is the right place to handle
 // 404 error
 const handle404Error = (router: Router) => {
     router.use((req: Request, res: Response, next: NextFunction) => {
-        throw new HttpError(404, 'Method not found.');
+        throw HttpError.notFound(
+            ErrorCodes.methodNotFound,
+            ErrorMessage.methodNotFound
+        );
     });
 };
 
@@ -18,7 +22,7 @@ const handleError = (router: Router) => {
             if (error instanceof HttpError) {
                 const response: ErrorResponse = {
                     message: error.message,
-                    errors: error.errors
+                    code: error.errorCode
                 };
                 return res.status(error.statusCode).json(response);
             }

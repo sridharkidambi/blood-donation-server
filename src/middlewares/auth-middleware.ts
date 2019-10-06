@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express';
 import HttpError from '../errors/http-error';
 import { verifyToken } from '../auth';
-import { getUserById } from '../user/user-service';
+import { ErrorMessage } from '../errors/ErrorCodes';
 
 export const verify = async (
     req: Request,
@@ -14,8 +14,9 @@ export const verify = async (
         // make the payload accessible to the following middlewares
         (req as any).payload = payload;
         return next();
-    } catch (reason) {
-        const error = new HttpError(401, reason);
+    } catch (errorCode) {
+        const message: string = (ErrorMessage as any)[errorCode];
+        const error = HttpError.unauthorized(errorCode, message);
         return next(error);
     }
 };

@@ -6,11 +6,8 @@ import DonationRequest from '../donation-request/donation-request-model';
 
 @Entity()
 export default class User extends BaseEntity {
-    @Column({ name: 'first_name' })
-    firstName!: string;
-
-    @Column({ name: 'last_name', nullable: true })
-    lastName!: string;
+    @Column()
+    name!: string;
 
     @Column({ name: 'email_address', unique: true })
     emailAddress!: string;

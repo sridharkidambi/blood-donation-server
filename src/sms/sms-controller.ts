@@ -11,6 +11,9 @@ export const otpRequestHandler = asyncMiddleware(
                 return res.status(200).json({ expiresIn: 5 * 60 });
             }
         } catch (e) {}
-        throw new HttpError(500, 'Unable to sent OTP');
+        throw HttpError.internalServerError(
+            'otp_send_failed',
+            'Unable to sent OTP'
+        );
     }
 );

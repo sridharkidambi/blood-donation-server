@@ -12,7 +12,7 @@ export const getUserByPhoneNumber = async (phoneNumber: string) =>
 
 export const getUserById = async (id: number) => await User.findOne(id);
 
-export const createAndLoginUser = async (user: User, otp: number) => {
+export const createAndLoginUser = async (user: User) => {
     await createUser(user);
     const result = classToPlain(user);
     (result as any).token = generateToken({ userId: user.id });

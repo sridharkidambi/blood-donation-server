@@ -83,7 +83,7 @@ describe('user endpoint', () => {
             user.id = 1;
             user.emailAddress = 'test@email.com';
             user.phoneNumber = '9988776655';
-            user.firstName = 'John';
+            user.name = 'John';
 
             await user.save();
 
