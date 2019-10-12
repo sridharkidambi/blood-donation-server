@@ -4,7 +4,7 @@ import User from './user-model';
 import HttpError from '../errors/http-error';
 import * as service from './user-service';
 import { asyncMiddleware } from '../middlewares/common';
-import { ErrorCodes, ErrorMessage } from '../errors/ErrorCodes';
+import { ErrorCodes, ErrorMessage } from '../errors/error-codes';
 
 export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {

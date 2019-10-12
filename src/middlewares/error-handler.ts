@@ -2,7 +2,7 @@ import { Request, Response, NextFunction, Router } from 'express';
 import ErrorResponse from '../models/error-response';
 import HttpError from '../errors/http-error';
 import config from '../config';
-import { ErrorCodes, ErrorMessage } from '../errors/ErrorCodes';
+import { ErrorCodes, ErrorMessage } from '../errors/error-codes';
 
 // this is the last middleware and hence is the right place to handle
 // 404 error

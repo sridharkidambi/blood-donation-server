@@ -5,7 +5,7 @@ import * as service from './donor-service';
 import { asyncMiddleware } from '../middlewares/common';
 import { getUserById } from '../user/user-service';
 import HttpError from '../errors/http-error';
-import { ErrorCodes } from '../errors/ErrorCodes';
+import { ErrorCodes } from '../errors/error-codes';
 
 export const createDonor = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {

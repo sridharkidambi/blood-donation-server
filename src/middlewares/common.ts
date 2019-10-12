@@ -9,7 +9,7 @@ import HttpError from '../errors/http-error';
 import cors from 'cors';
 import parser from 'body-parser';
 import morgan from 'morgan';
-import { ErrorCodes } from '../errors/ErrorCodes';
+import { ErrorCodes } from '../errors/error-codes';
 
 export const handleCors = (router: Router) =>
     router.use(cors({ credentials: true, origin: true }));
