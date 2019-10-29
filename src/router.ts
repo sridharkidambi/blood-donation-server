@@ -7,7 +7,7 @@ import { verify } from './middlewares/auth-middleware';
 import { slowDown } from './middlewares/common';
 
 const router = express();
-// router.use(slowDown(2000)); // slow down the request for testing
+router.use(slowDown(4000)); // slow down the request for testing
 applyMiddlewares(middlewares, router);
 applyRoutes(routes, router, verify, '/api/v1');
 applyMiddlewares(errorHandlers, router);

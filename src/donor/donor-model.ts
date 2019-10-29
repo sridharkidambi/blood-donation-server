@@ -36,7 +36,7 @@ export default class Donor extends BaseEntity {
     @Column()
     dob!: Date;
 
-    @Column({ name: 'blood_type' })
+    @Column()
     bloodType!: BloodType;
 
     @Column(type => Location, { prefix: '' })

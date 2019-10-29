@@ -9,10 +9,10 @@ export default class User extends BaseEntity {
     @Column()
     name!: string;
 
-    @Column({ name: 'email_address', unique: true })
+    @Column({ unique: true })
     emailAddress!: string;
 
-    @Column({ name: 'phone_number', unique: true })
+    @Column({ unique: true })
     phoneNumber!: string;
 
     @Column()

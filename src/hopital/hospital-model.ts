@@ -11,16 +11,16 @@ export default class Hospital extends BaseEntity {
     @Column(type => Location, { prefix: '' })
     location!: Location;
 
-    @Column({ name: 'phone_number' })
+    @Column()
     phoneNumber!: string;
 
-    @Column({ type: 'time', name: 'opens_at' })
+    @Column({ type: 'time' })
     opensAt!: string;
 
-    @Column({ type: 'time', name: 'closes_at' })
+    @Column({ type: 'time' })
     closesAt!: string;
 
-    @Column({ name: 'gmaps_id' })
+    @Column()
     gmapsId!: string;
 
     @OneToMany(type => DonationRequest, dr => dr.hospital)

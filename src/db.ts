@@ -1,6 +1,7 @@
 import { createConnection } from 'typeorm';
 import { entities } from './models';
 import config from './config';
+import { SnakeNamingStrategy } from './common/snakecase-naming-strategy';
 
 export const getConnection = () => {
     return createConnection({
@@ -11,7 +12,8 @@ export const getConnection = () => {
         password: config.dbPassword,
         database: config.dbName,
         entities: entities,
-        synchronize: true
+        synchronize: true,
+        namingStrategy: new SnakeNamingStrategy()
         // logging: config.isDevelopment
     });
 };

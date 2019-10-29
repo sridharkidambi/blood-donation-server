@@ -5,34 +5,37 @@ import Hospital from '../hopital/hospital-model';
 
 @Entity()
 export default class DonationRequest extends BaseEntity {
-    @ManyToOne(type => User, user => user.donationRequests, { nullable: false })
-    @JoinColumn({ name: 'requester_id' })
+    @ManyToOne(type => User, user => user.donationRequests, {nullable: false})
+    @JoinColumn()
     requester!: Promise<User>;
 
-    @ManyToOne(type => Hospital, hosital => hosital.requests, {
+    @ManyToOne(type => Hospital, hospital => hospital.requests, {
         nullable: false
     })
-    @JoinColumn({ name: 'hospital_id' })
+    @JoinColumn()
     hospital!: Hospital;
 
-    @Column({ name: 'patient_name' })
+    @Column()
     patientName!: string;
 
-    @Column({ name: 'patient_gender' })
+    @Column()
     patientGender!: string;
 
-    @Column({ name: 'patient_blood_group' })
+    @Column()
     patientBloodGroup!: string;
 
-    @Column({ name: 'units_required' })
+    @Column()
     unitsRequired!: number;
 
-    @Column({ name: 'required_on', type: 'timestamp' })
+    @Column({type: 'timestamp'})
     requiredOn!: Date;
 
     @Column()
-    realationship!: string;
+    requiredImmediately!: boolean;
 
-    @Column({ type: 'text' })
-    notes!: string;
+    @Column()
+    relationship!: string;
+
+    @Column({type: 'text'})
+    description!: string;
 }
