@@ -1,6 +1,6 @@
 import { anyFalsy } from './common/utils';
 
-// load the conifg from .env files
+// load the config from .env files
 require('custom-env').env(process.env.NODE_ENV || 'development');
 
 // a handy class to hold all config
@@ -14,6 +14,7 @@ export class Config {
     dbPassword: string;
     dbPort: number;
     msg91AuthKey: string;
+    googleMapsKey: string;
 
     constructor() {
         this.env = process.env.NODE_ENV!;
@@ -25,6 +26,7 @@ export class Config {
         this.dbPassword = process.env.DB_PASSWORD!;
         this.dbPort = +process.env.DB_PORT!;
         this.msg91AuthKey = process.env.MSG91_AUTH_KEY!;
+        this.googleMapsKey = process.env.GOOGLE_MAPS_KEY!;
     }
 
     get isDevelopment() {
