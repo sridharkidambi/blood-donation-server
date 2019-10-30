@@ -8,17 +8,14 @@ export default class Hospital extends BaseEntity {
     @Column()
     name!: string;
 
+    @Column()
+    address!: string;
+
     @Column(type => Location, { prefix: '' })
     location!: Location;
 
     @Column()
     phoneNumber!: string;
-
-    @Column({ type: 'time' })
-    opensAt!: string;
-
-    @Column({ type: 'time' })
-    closesAt!: string;
 
     @Column()
     gmapsId!: string;
