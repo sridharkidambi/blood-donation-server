@@ -3,7 +3,7 @@ import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import User from '../user/user-model';
 import BloodType from '../models/blood-types';
 import Gender from '../models/gender';
-import Location from '../common/orm/location';
+import Location from '../models/location';
 
 @Entity()
 export default class Donor extends BaseEntity {

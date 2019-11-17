@@ -1,10 +1,8 @@
 import axios from 'axios';
 import config from "../config";
-import Hospital from "./hospital-model";
-import {plainToClass} from "class-transformer";
 
 
-export const searchHospitals = async (input: string, location: string) => {
+export const searchPlace = async (input: string, location: string) => {
     const url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 
     const params = {
@@ -31,7 +29,7 @@ export const searchHospitals = async (input: string, location: string) => {
     }
 };
 
-export const hospitalDetail = async (placeId: string): Promise<object> => {
+export const placeDetail = async (placeId: string): Promise<object> => {
     const url = 'https://maps.googleapis.com/maps/api/place/details/json';
 
     const params = {
@@ -45,10 +43,10 @@ export const hospitalDetail = async (placeId: string): Promise<object> => {
     if (data.status !== "OK") {
         throw new Error();
     }
-    return hospitalFromPlaceResult(data.result);
+    return placeFromPlaceResult(data.result);
 };
 
-const hospitalFromPlaceResult = (json: any): object => {
+const placeFromPlaceResult = (json: any): object => {
     return {
         gmapsId: json.palce_id,
         name: json.name,

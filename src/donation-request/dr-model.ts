@@ -1,7 +1,7 @@
-import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
 import BaseEntity from '../models/base-entity';
 import User from '../user/user-model';
-import Hospital from '../hopital/hospital-model';
+import Place from '../places/palce-model';
 
 @Entity()
 export default class DonationRequest extends BaseEntity {
@@ -9,20 +9,17 @@ export default class DonationRequest extends BaseEntity {
     @JoinColumn()
     requester!: Promise<User>;
 
-    @ManyToOne(type => Hospital, hospital => hospital.requests, {
+    @ManyToOne(type => Place, place => place.donationRequests, {
         nullable: false
     })
     @JoinColumn()
-    hospital!: Hospital;
+    venue!: Place;
 
     @Column()
     patientName!: string;
 
     @Column()
-    patientGender!: string;
-
-    @Column()
-    patientBloodGroup!: string;
+    requiredBloodGroup!: string;
 
     @Column()
     unitsRequired!: number;
@@ -31,11 +28,14 @@ export default class DonationRequest extends BaseEntity {
     requiredOn!: Date;
 
     @Column()
-    requiredImmediately!: boolean;
+    requiredAsap!: boolean;
 
     @Column()
-    relationship!: string;
+    attenderName!: string;
+
+    @Column()
+    attenderPhoneNumber!: string;
 
     @Column({type: 'text'})
-    description!: string;
+    notes!: string;
 }

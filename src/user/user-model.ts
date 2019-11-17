@@ -2,7 +2,7 @@ import { Entity, Column, OneToOne, ManyToOne, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import BaseEntity from '../models/base-entity';
 import Donor from '../donor/donor-model';
-import DonationRequest from '../donation-request/donation-request-model';
+import DonationRequest from '../donation-request/dr-model';
 
 @Entity()
 export default class User extends BaseEntity {
