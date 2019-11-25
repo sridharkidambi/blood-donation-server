@@ -1,6 +1,6 @@
 import { body, param } from 'express-validator';
 import { validate } from '../middlewares/common';
-import { getUserByEmail, getUserByPhoneNumber } from './user-service';
+import { findUserByEmail, findUserByPhoneNumber } from './user-service';
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
@@ -9,7 +9,7 @@ const phoneNumberValidator = body('phoneNumber').isMobilePhone('en-IN');
 const uniquePhoneNumberValidator = body('phoneNumber')
     .isMobilePhone('en-IN')
     .custom(async value => {
-        const user = await getUserByPhoneNumber(value);
+        const user = await findUserByPhoneNumber(value);
         if (user) throw new Error();
         return true;
     })
@@ -23,7 +23,7 @@ const uniqueEmailValidator = body('emailAddress')
     .isEmail()
     .withMessage('Invalid email address')
     .custom(async value => {
-        const user = await getUserByEmail(value);
+        const user = await findUserByEmail(value);
         if (user) throw new Error();
         return true;
     })

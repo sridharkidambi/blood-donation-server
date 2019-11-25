@@ -33,6 +33,10 @@ export class Config {
         return this.env === 'development';
     }
 
+    get isTest() {
+        return this.env === 'test';
+    }
+
     get isProduction() {
         return this.env === 'production';
     }

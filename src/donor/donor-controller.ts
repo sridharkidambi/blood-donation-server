@@ -3,7 +3,7 @@ import { plainToClass, classToPlain } from 'class-transformer';
 import Donor from './donor-model';
 import * as service from './donor-service';
 import { asyncMiddleware } from '../middlewares/common';
-import { getUserById } from '../user/user-service';
+import { findUserById } from '../user/user-service';
 import HttpError from '../errors/http-error';
 import { ErrorCodes } from '../errors/error-codes';
 
@@ -12,7 +12,7 @@ export const createDonor = asyncMiddleware(
         const donorInfo = plainToClass(Donor, req.body);
         const userId = (req as any).payload.userId;
 
-        const user = await getUserById(userId);
+        const user = await findUserById(userId);
         if (await user!.isDonor()) {
             throw HttpError.unprocessableEntity(
                 ErrorCodes.alreadyExist,

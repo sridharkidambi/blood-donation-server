@@ -1,10 +1,8 @@
 import request from 'supertest';
-import { Connection } from 'typeorm';
+import {Connection} from 'typeorm';
 import router from '../../router';
-import { getConnection } from '../../db';
-import User from '../../user/user-model';
-import Donor from '../../donor/donor-model';
-import { dummyUser } from '../dummies';
+import {getConnection} from '../../db';
+import {dummyUser} from '../dummies';
 
 describe('donor endpoint', () => {
     let db: Connection;

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import config from "../config";
+import Place from "./palce-model";
+import {plainToClass} from "class-transformer";
 
 
 export const searchPlace = async (input: string, location: string) => {
@@ -29,7 +31,7 @@ export const searchPlace = async (input: string, location: string) => {
     }
 };
 
-export const placeDetail = async (placeId: string): Promise<object> => {
+export const placeDetail = async (placeId: string): Promise<Place> => {
     const url = 'https://maps.googleapis.com/maps/api/place/details/json';
 
     const params = {
@@ -46,9 +48,18 @@ export const placeDetail = async (placeId: string): Promise<object> => {
     return placeFromPlaceResult(data.result);
 };
 
-const placeFromPlaceResult = (json: any): object => {
-    return {
-        gmapsId: json.palce_id,
+export const findOrCreatePlace = async (gmapsId: string): Promise<Place> => {
+    const placeFromDb = await Place.findOne({gmapsId});
+    if (placeFromDb) return placeFromDb;
+
+    const place = await placeDetail(gmapsId);
+    await place.save();
+    return place;
+};
+
+const placeFromPlaceResult = (json: any): Place => {
+    const data = {
+        gmapsId: json.place_id,
         name: json.name,
         phoneNumber: json.international_phone_number,
         address: json.formatted_address,
@@ -57,4 +68,5 @@ const placeFromPlaceResult = (json: any): object => {
             longitude: json.geometry.location.lng
         }
     };
+    return plainToClass(Place, data);
 };

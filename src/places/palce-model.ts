@@ -17,7 +17,7 @@ export default class Place extends BaseEntity {
     @Column()
     phoneNumber!: string;
 
-    @Column()
+    @Column({ unique: true })
     gmapsId!: string;
 
     @OneToMany(type => DonationRequest, dr => dr.venue)

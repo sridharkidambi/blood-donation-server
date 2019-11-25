@@ -1,9 +1,11 @@
 import {Request} from 'express';
-import User from "../user/user-model";
+import {findUserById} from '../user/user-service';
 
 export const currentUser = async (req: Request) => {
-    const userId = (req as any).payload.userId;
+    const userId = currentUserId(req);
     if (!userId) return null;
 
-    return await User.findOne(userId);
-}
+    return await findUserById(userId);
+};
+
+export const currentUserId = (req: Request) => (req as any).payload.userId;

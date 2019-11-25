@@ -1,11 +1,23 @@
 import DonationRequest from "./dr-model";
+import Place from "../places/palce-model";
+import {findOrCreatePlace} from "../places/place-service";
+import {plainToClass} from "class-transformer";
+import {CreateRequestDto} from "../dto/create-request-dto";
 import User from "../user/user-model";
+import {findUserById} from "../user/user-service";
+
 
 export const createDonationRequest = async (
-    user: User,
-    request: DonationRequest): Promise<DonationRequest> => {
+    params: CreateRequestDto
+): Promise<DonationRequest> => {
 
-    request.requester = Promise.resolve(user);
-    await request.save();
-    return request;
+    const user: User = (await findUserById(params.requesterId))!;
+    const venue: Place = await findOrCreatePlace(params.venueGmapsId);
+
+    const donationRequest = plainToClass(DonationRequest, params);
+    donationRequest.requester = Promise.resolve(user);
+    donationRequest.venue = venue;
+    await donationRequest.save();
+
+    return donationRequest;
 };

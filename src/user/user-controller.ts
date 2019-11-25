@@ -9,7 +9,7 @@ import { ErrorCodes, ErrorMessage } from '../errors/error-codes';
 export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params['user_id'];
-        const user = await service.getUserById(userId);
+        const user = await service.findUserById(userId);
         if (!user) {
             return next(
                 HttpError.notFound(ErrorCodes.notFound, 'No such user')

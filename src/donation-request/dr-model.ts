@@ -10,7 +10,8 @@ export default class DonationRequest extends BaseEntity {
     requester!: Promise<User>;
 
     @ManyToOne(type => Place, place => place.donationRequests, {
-        nullable: false
+        nullable: false,
+        eager: true,
     })
     @JoinColumn()
     venue!: Place;
@@ -24,7 +25,7 @@ export default class DonationRequest extends BaseEntity {
     @Column()
     unitsRequired!: number;
 
-    @Column({type: 'timestamp'})
+    @Column({type: 'timestamp', nullable: true})
     requiredOn!: Date;
 
     @Column()
@@ -36,6 +37,6 @@ export default class DonationRequest extends BaseEntity {
     @Column()
     attenderPhoneNumber!: string;
 
-    @Column({type: 'text'})
+    @Column({type: 'text', nullable: true})
     notes!: string;
 }

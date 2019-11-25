@@ -1,5 +1,4 @@
-import { Router, RequestHandler, NextFunction } from 'express';
-import bcrypt from 'bcrypt';
+import {RequestHandler, Router} from 'express';
 
 export const applyMiddlewares = (
     middlewares: MiddlewareWrapper[],

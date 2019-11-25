@@ -1,9 +1,8 @@
-import { validate } from '../middlewares/common';
-import { body, header } from 'express-validator';
+import {validate} from '../middlewares/common';
+import {body} from 'express-validator';
 import Gender from '../models/gender';
 import BloodType from '../models/blood-types';
-import { getUserById } from '../user/user-service';
-import { getValues } from '../common/utils';
+import {getValues} from '../common/utils';
 
 const validGenders = getValues(Gender);
 const validBloodTypes = getValues(BloodType);
@@ -18,5 +17,6 @@ export const createDonorValidator = validate(
     body('dob').isISO8601(),
     body('bloodType').isIn(validBloodTypes),
     body('location.longitude').isFloat(),
-    body('location.latitude').isFloat()
+    body('location.latitude').isFloat(),
+
 );
