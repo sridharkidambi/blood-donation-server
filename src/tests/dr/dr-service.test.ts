@@ -19,9 +19,7 @@ describe('donation request service', () => {
         await clear()
     });
 
-    afterEach(async () => {
-        await clear()
-    });
+    afterEach(clear);
 
     afterAll(async () => {
         await db.close();

@@ -30,7 +30,7 @@ export const validate = (...validations: ValidationChain[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         await Promise.all(validations.map(validation => validation.run(req)));
 
-        let errors = validationResult(req).formatWith(e => e.msg);
+        let errors = validationResult(req).formatWith(e => e.param);
         if (errors.isEmpty()) {
             return next();
         }
