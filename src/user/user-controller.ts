@@ -1,14 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { plainToClass, classToPlain } from 'class-transformer';
+import {Request, Response, NextFunction} from 'express';
+import {plainToClass, classToPlain} from 'class-transformer';
 import User from './user-model';
 import HttpError from '../errors/http-error';
 import * as service from './user-service';
-import { asyncMiddleware } from '../middlewares/common';
-import { ErrorCodes, ErrorMessage } from '../errors/error-codes';
+import {asyncMiddleware} from '../middlewares/common';
+import {ErrorCodes, ErrorMessage} from '../errors/error-codes';
 
 export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const userId = req.params['user_id'];
+        const userId = req.params.userId;
         const user = await service.findUserById(userId);
         if (!user) {
             return next(
@@ -24,15 +24,14 @@ export const updateUser = async (
     res: Response,
     next: NextFunction
 ) => {
-    const params: User = plainToClass(User, req.body);
-    console.log(params);
+    const params: User = plainToClass(User, (req.body as object));
     res.status(200);
     // TODO
 };
 
 export const login = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const { phoneNumber, password } = req.body;
+        const {phoneNumber, password} = req.body;
         const responseData = await service.login(phoneNumber, password);
 
         if (!responseData) {
@@ -48,17 +47,19 @@ export const login = asyncMiddleware(
 
 export const registerUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const user = plainToClass(User, req.body);
+        const user = plainToClass(User, (req.body as object));
         try {
             const response = await service.createAndLoginUser(user);
-            res.status(201)
-                .json(classToPlain(response))
-                .send();
+            res.status(201).json(classToPlain(response)).send();
         } catch (e) {
-            throw HttpError.internalServerError(
-                ErrorCodes.failed,
-                'Something went wrong in the server side'
-            );
+            throw HttpError.internalServerError(ErrorCodes.failed, 'Something went wrong');
         }
+    }
+);
+
+export const getUserDonationRequests = asyncMiddleware(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const userId = req.params.userId;
+        return await service.userDonationRequests(userId);
     }
 );

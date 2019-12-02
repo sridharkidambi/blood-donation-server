@@ -14,7 +14,7 @@ export const applyRoutes = (
     namespace: string = '' // a prefix for all the routes defined
 ) => {
     routes.forEach(route => {
-        const { method, handler, noAuth } = route;
+        const {method, handler, noAuth} = route;
         const path = namespace + route.path;
         if (noAuth) {
             (router as any)[method](path, handler);
@@ -36,6 +36,13 @@ export const anyFalsy = (...values: any[]) => {
         if (!v) return true;
     }
     return false;
+};
+
+export const routeMaker = (resource: string) => {
+    return {
+        single: (path: string) => `/${resource}/:${resource}Id${path}`,
+        collection: (path: string) => `/${resource}${path}`
+    }
 };
 
 export const getValues = (obj: any) => Object.keys(obj).map(o => obj[o]);
