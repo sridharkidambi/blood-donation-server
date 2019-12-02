@@ -3,8 +3,26 @@ import {Entity, Column, OneToMany} from 'typeorm';
 import Location from '../models/location';
 import DonationRequest from '../donation-request/dr-model';
 
+interface PlaceParams {
+    name: string,
+    address: string,
+    location: Location,
+    phoneNumber: string,
+    gmapsId: string
+}
+
 @Entity()
 export default class Place extends BaseEntity {
+    constructor(params?: PlaceParams) {
+        super();
+        if (!params) return;
+        this.name = params.name;
+        this.address = params.address;
+        this.location = params.location;
+        this.phoneNumber = params.phoneNumber;
+        this.gmapsId = params.gmapsId;
+    }
+
     @Column()
     name!: string;
 
@@ -17,7 +35,7 @@ export default class Place extends BaseEntity {
     @Column()
     phoneNumber!: string;
 
-    @Column({ unique: true })
+    @Column({unique: true})
     gmapsId!: string;
 
     @OneToMany(type => DonationRequest, dr => dr.venue)

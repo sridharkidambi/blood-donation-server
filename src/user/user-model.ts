@@ -1,11 +1,27 @@
-import { Entity, Column, OneToOne, ManyToOne, OneToMany } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import {Column, Entity, OneToMany, OneToOne} from 'typeorm';
+import {Exclude} from 'class-transformer';
 import BaseEntity from '../models/base-entity';
 import Donor from '../donor/donor-model';
 import DonationRequest from '../donation-request/dr-model';
 
+interface UserParams {
+    name: string;
+    emailAddress: string;
+    phoneNumber: string;
+    password: string;
+}
+
 @Entity()
 export default class User extends BaseEntity {
+    constructor(params?: UserParams) {
+        super();
+        if (!params) return;
+        this.name = params.name;
+        this.emailAddress = params.emailAddress;
+        this.phoneNumber = params.phoneNumber;
+        this.password = params.password;
+    }
+
     @Column()
     name!: string;
 
