@@ -31,7 +31,7 @@ export default class User extends BaseEntity {
     @Column({ unique: true })
     phoneNumber!: string;
 
-    @Column()
+    @Column({nullable: true})
     @Exclude({ toPlainOnly: true })
     password!: string;
 

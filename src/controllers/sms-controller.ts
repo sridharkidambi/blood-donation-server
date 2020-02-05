@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { asyncMiddleware } from '../middlewares/common';
-import { sendOTP } from './sms-service';
+import { sendOTP } from '../service/sms-service';
 import HttpError from '../errors/http-error';
 
 export const otpRequestHandler = asyncMiddleware(

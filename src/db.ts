@@ -16,6 +16,6 @@ export const getConnection = () => {
         cli: {migrationsDir: "migration"},
         synchronize: true,
         namingStrategy: new SnakeNamingStrategy(),
-        logging: config.isTest
+        logging: config.isDevelopment
     });
 };
