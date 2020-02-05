@@ -1,4 +1,4 @@
-import * as controller from './place-controller';
+import * as controller from '../controllers/place-controller';
 
 export default [
     {

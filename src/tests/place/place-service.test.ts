@@ -1,7 +1,7 @@
 import {Connection} from "typeorm";
 import {getConnection} from "../../db";
-import {findOrCreatePlace} from "../../places/place-service";
-import Place from "../../places/palce-model";
+import {findOrCreatePlace} from "../../service/place-service";
+import Place from "../../models/palce-model";
 import Location from "../../models/location";
 
 describe('place service', () => {

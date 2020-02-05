@@ -1,5 +1,5 @@
 import {Request} from 'express';
-import {findUserById} from '../user/user-service';
+import {findUserById} from '../service/user-service';
 
 export const currentUser = async (req: Request) => {
     const userId = currentUserId(req);

@@ -1,9 +1,9 @@
-import BaseEntity from '../models/base-entity';
+import BaseEntity from './base-entity';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
-import User from '../user/user-model';
-import BloodType from '../models/blood-types';
-import Gender from '../models/gender';
-import Location from '../models/location';
+import User from './user-model';
+import BloodType from './blood-types';
+import Gender from './gender';
+import Location from './location';
 
 @Entity()
 export default class Donor extends BaseEntity {

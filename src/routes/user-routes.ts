@@ -1,5 +1,5 @@
-import * as controller from './user-controller';
-import * as validator from './user-validator';
+import * as controller from '../controllers/user-controller';
+import * as validator from '../validators/user-validator';
 import {routeMaker} from "../common/utils";
 
 const route = routeMaker('user');

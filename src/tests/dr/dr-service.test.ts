@@ -1,9 +1,9 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
-import {createDonationRequest} from "../../donation-request/dr-service";
-import {CreateRequestDto} from "../../dto/create-request-dto";
+import {createDonationRequest} from "../../service/dr-service";
+import {CreateRequestDto} from "../../models/create-request-dto";
 import {plainToClass} from "class-transformer";
-import User from "../../user/user-model";
+import User from "../../models/user-model";
 
 describe('donation request service', () => {
     let db: Connection;

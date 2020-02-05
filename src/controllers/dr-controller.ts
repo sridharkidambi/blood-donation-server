@@ -1,8 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
 import {asyncMiddleware} from '../middlewares/common';
-import * as service from "./dr-service";
+import * as service from "../service/dr-service";
 import {currentUserId} from "../common/helper";
-import {CreateRequestDto} from "../dto/create-request-dto";
+import {CreateRequestDto} from "../models/create-request-dto";
 
 export const createRequest = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {

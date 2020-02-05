@@ -1,5 +1,5 @@
-import Donor from './donor-model';
-import User from '../user/user-model';
+import Donor from '../models/donor-model';
+import User from '../models/user-model';
 
 export const createDonor = async (donor: Donor, userId: number) => {
     console.log(userId);

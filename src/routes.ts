@@ -1,8 +1,8 @@
-import userRoutes from './user/user-routes';
-import donorRoutes from './donor/donor-routes';
+import userRoutes from './routes/user-routes';
+import donorRoutes from './routes/donor-routes';
 import smsRoutes from './sms/sms-routes';
-import placeRoutes from './places/place-routes';
-import drRoutes from './donation-request/dr-routes';
+import placeRoutes from './routes/place-routes';
+import drRoutes from './routes/dr-routes';
 
 export default [
     ...userRoutes,

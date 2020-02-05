@@ -1,8 +1,8 @@
-import User from './user-model';
+import User from '../models/user-model';
 import {classToPlain} from 'class-transformer';
 import {generateToken} from '../auth';
 import {encrypt, verifyHash} from './hash';
-import DonationRequest from "../donation-request/dr-model";
+import DonationRequest from "../models/dr-model";
 
 
 export const findUserByEmail = async (emailAddress: string) => {

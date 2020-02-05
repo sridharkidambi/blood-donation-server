@@ -1,10 +1,10 @@
-import DonationRequest from "./dr-model";
-import Place from "../places/palce-model";
-import {findOrCreatePlace} from "../places/place-service";
+import DonationRequest from "../models/dr-model";
+import Place from "../models/palce-model";
+import {findOrCreatePlace} from "./place-service";
 import {plainToClass} from "class-transformer";
-import {CreateRequestDto} from "../dto/create-request-dto";
-import User from "../user/user-model";
-import {findUserById} from "../user/user-service";
+import {CreateRequestDto} from "../models/create-request-dto";
+import User from "../models/user-model";
+import {findUserById} from "./user-service";
 
 
 export const createDonationRequest = async (

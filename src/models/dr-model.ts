@@ -1,7 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
-import BaseEntity from '../models/base-entity';
-import User from '../user/user-model';
-import Place from '../places/palce-model';
+import BaseEntity from './base-entity';
+import User from './user-model';
+import Place from './palce-model';
 
 interface DonationRequestParams {
     requester: Promise<User>,

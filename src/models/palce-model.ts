@@ -1,7 +1,7 @@
-import BaseEntity from '../models/base-entity';
+import BaseEntity from './base-entity';
 import {Entity, Column, OneToMany} from 'typeorm';
-import Location from '../models/location';
-import DonationRequest from '../donation-request/dr-model';
+import Location from './location';
+import DonationRequest from './dr-model';
 
 interface PlaceParams {
     name: string,

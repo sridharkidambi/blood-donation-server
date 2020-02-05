@@ -1,5 +1,5 @@
-import * as controller from './dr-controller';
-import * as validator from './dr-validator';
+import * as controller from '../controllers/dr-controller';
+import * as validator from '../validators/dr-validator';
 
 export default [
     {

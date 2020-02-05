@@ -1,8 +1,8 @@
 import {Request, Response, NextFunction} from 'express';
 import {plainToClass, classToPlain} from 'class-transformer';
-import User from './user-model';
+import User from '../models/user-model';
 import HttpError from '../errors/http-error';
-import * as service from './user-service';
+import * as service from '../service/user-service';
 import {asyncMiddleware} from '../middlewares/common';
 import {ErrorCodes, ErrorMessage} from '../errors/error-codes';
 

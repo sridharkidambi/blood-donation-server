@@ -1,10 +1,10 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
-import User from "../../user/user-model";
-import DonationRequest from "../../donation-request/dr-model";
-import Place from "../../places/palce-model";
+import User from "../../models/user-model";
+import DonationRequest from "../../models/dr-model";
+import Place from "../../models/palce-model";
 import Location from '../../models/location';
-import {userDonationRequests} from "../../user/user-service";
+import {userDonationRequests} from "../../service/user-service";
 
 describe('user service', () => {
     let db: Connection;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from "../config";
-import Place from "./palce-model";
+import Place from "../models/palce-model";
 import {plainToClass} from "class-transformer";
 
 
