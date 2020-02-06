@@ -1,22 +1,31 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import {Router, Request, Response, NextFunction} from 'express';
 import {
     validationResult,
     ValidationChain,
-    ValidationError
 } from 'express-validator';
 import config from '../config';
 import HttpError from '../errors/http-error';
 import cors from 'cors';
 import parser from 'body-parser';
 import morgan from 'morgan';
-import { ErrorCodes } from '../errors/error-codes';
+import {ErrorCodes} from '../errors/error-codes';
 
 export const handleCors = (router: Router) =>
-    router.use(cors({ credentials: true, origin: true }));
+    router.use(cors({credentials: true, origin: true}));
 
 export const parseRequestBody = (router: Router) => {
-    router.use(parser.urlencoded({ extended: true }));
-    router.use(parser.json());
+    router.use(parser.urlencoded({extended: true}));
+    router.use((req, res, next) => {
+        parser.json({
+            // verify: (req, res, buf) => buf.toString(),
+        })(req, res, (err) => {
+            if (err) {
+                const badRequestError = HttpError.badRequest('invalid_json', '');
+                return next(badRequestError);
+            }
+            next();
+        });
+    });
 };
 
 export const logRequest = (router: Router) => {
@@ -37,7 +46,7 @@ export const validate = (...validations: ValidationChain[]) => {
 
         const error = HttpError.unprocessableEntity(
             ErrorCodes.validationError,
-            errors.array().join(',\n')
+            `Missing or invalid value(s) for ${errors.array().join(', ')}`
         );
         next(error);
     };
