@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {asyncMiddleware} from '../middlewares/common';
-import * as service from "../service/dr-service";
+import * as service from "../service/donation-request-service";
 import {currentUserId} from "../common/helper";
 import {CreateRequestDto} from "../models/create-request-dto";
 

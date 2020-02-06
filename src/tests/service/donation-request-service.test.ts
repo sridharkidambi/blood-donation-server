@@ -1,6 +1,6 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
-import {createDonationRequest} from "../../service/dr-service";
+import {createDonationRequest} from "../../service/donation-request-service";
 import {CreateRequestDto} from "../../models/create-request-dto";
 import {plainToClass} from "class-transformer";
 import User from "../../models/user";

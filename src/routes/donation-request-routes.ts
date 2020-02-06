@@ -1,4 +1,4 @@
-import * as controller from '../controllers/dr-controller';
+import * as controller from '../controllers/dontaion-request-controller';
 import * as validator from '../validators/dr-validator';
 
 export default [
