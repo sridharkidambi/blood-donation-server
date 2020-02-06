@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { plainToClass, classToPlain } from 'class-transformer';
-import Donor from '../models/donor-model';
+import Donor from '../models/donor';
 import * as service from '../service/donor-service';
 import { asyncMiddleware } from '../middlewares/common';
 import { findUserById } from '../service/user-service';

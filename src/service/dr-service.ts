@@ -1,9 +1,9 @@
-import DonationRequest from "../models/dr-model";
-import Place from "../models/palce-model";
+import DonationRequest from "../models/donation-request";
+import Place from "../models/place";
 import {findOrCreatePlace} from "./place-service";
 import {plainToClass} from "class-transformer";
 import {CreateRequestDto} from "../models/create-request-dto";
-import User from "../models/user-model";
+import User from "../models/user";
 import {findUserById} from "./user-service";
 
 

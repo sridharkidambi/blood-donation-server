@@ -2,24 +2,27 @@ import {Column} from "typeorm";
 import Coordinate from "./coordinate";
 
 export default class Address {
-    @Column({name: 'street_address'})
-    streetAddress?: string;
+    @Column({nullable: true})
+    street?: string;
 
-    @Column({name: 'area'})
+    @Column({nullable: true})
     area?: string;
 
-    @Column({name: 'city'})
+    @Column({nullable: true})
     city?: string;
 
-    @Column({name: 'state'})
+    @Column({nullable: true})
+    pincode!: number;
+
+    @Column({name: 'state', nullable: true})
     state?: string;
 
-    @Column({name: 'country'})
+    @Column({name: 'country', nullable: true})
     country?: string;
 
-    @Column({name: 'fallback_address'})
+    @Column({name: 'fallback_address', nullable: true})
     fallbackAddress?: string;
 
-    @Column(type => Location, {prefix: ''})
+    @Column(type => Coordinate, {prefix: ''})
     coordinate!: Coordinate;
 }

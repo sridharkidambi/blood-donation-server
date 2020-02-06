@@ -1,8 +1,8 @@
 import {Column, Entity, OneToMany, OneToOne} from 'typeorm';
 import {Exclude} from 'class-transformer';
 import BaseEntity from './base-entity';
-import Donor from './donor-model';
-import DonationRequest from './dr-model';
+import Donor from './donor';
+import DonationRequest from './donation-request';
 
 interface UserParams {
     name: string;

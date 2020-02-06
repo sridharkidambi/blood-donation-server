@@ -2,7 +2,7 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 import router from '../../router';
 import { getConnection } from '../../db';
-import User from '../../models/user-model';
+import User from '../../models/user';
 
 describe('user endpoint', () => {
     let db: Connection;

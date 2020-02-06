@@ -1,8 +1,8 @@
 import {Connection} from "typeorm";
 import {getConnection} from "../../db";
 import {findOrCreatePlace} from "../../service/place-service";
-import Place from "../../models/palce-model";
-import Location from "../../models/location";
+import Place from "../../models/place";
+import Coordinate from "../../models/coordinate";
 
 describe('place service', () => {
     let db: Connection;
@@ -40,7 +40,7 @@ describe('place service', () => {
             const eiffelTower = "ChIJLU7jZClu5kcR4PcOOO6p3I0";
 
             const place = new Place();
-            place.location = new Location({latitude: 1, longitude: 1});
+            place.coordinate = new Coordinate({latitude: 1, longitude: 1});
             place.address = "address";
             place.gmapsId = eiffelTower;
             place.phoneNumber = "9988998899";

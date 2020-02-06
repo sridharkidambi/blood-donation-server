@@ -1,9 +1,9 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
-import User from "../../models/user-model";
-import DonationRequest from "../../models/dr-model";
-import Place from "../../models/palce-model";
-import Location from '../../models/location';
+import User from "../../models/user";
+import DonationRequest from "../../models/donation-request";
+import Place from "../../models/place";
+import Coordinate from '../../models/coordinate';
 import {userDonationRequests} from "../../service/user-service";
 
 describe('user service', () => {
@@ -34,7 +34,7 @@ describe('user service', () => {
             const place = new Place({
                 address: '',
                 gmapsId: '',
-                location: new Location({
+                coordinate: new Coordinate({
                     latitude: 1,
                     longitude: 2,
                 }),

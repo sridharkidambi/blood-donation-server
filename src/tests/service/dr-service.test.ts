@@ -3,7 +3,7 @@ import {getConnection} from '../../db';
 import {createDonationRequest} from "../../service/dr-service";
 import {CreateRequestDto} from "../../models/create-request-dto";
 import {plainToClass} from "class-transformer";
-import User from "../../models/user-model";
+import User from "../../models/user";
 
 describe('donation request service', () => {
     let db: Connection;

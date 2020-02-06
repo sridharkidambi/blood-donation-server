@@ -1,9 +1,10 @@
 import BaseEntity from './base-entity';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
-import User from './user-model';
+import User from './user';
 import BloodType from './blood-types';
 import Gender from './gender';
-import Location from './location';
+import Coordinate from './coordinate';
+import Address from "./address";
 
 @Entity()
 export default class Donor extends BaseEntity {
@@ -15,20 +16,8 @@ export default class Donor extends BaseEntity {
     @JoinColumn({ name: 'user_id' })
     user!: User;
 
-    @Column({ nullable: true })
-    address!: string;
-
-    @Column()
-    locality!: string;
-
-    @Column()
-    city!: string;
-
-    @Column()
-    state!: string;
-
-    @Column()
-    pincode!: number;
+    @Column(type => Address, {prefix: ''})
+    address!: Address;
 
     @Column()
     gender!: Gender;
@@ -38,7 +27,4 @@ export default class Donor extends BaseEntity {
 
     @Column()
     bloodType!: BloodType;
-
-    @Column(type => Location, { prefix: '' })
-    location!: Location;
 }

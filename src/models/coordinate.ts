@@ -13,9 +13,9 @@ export default class Coordinate {
         }
     }
 
-    @Column({name: 'latitude', type: 'float8'})
+    @Column({name: 'latitude', type: 'float8', nullable: true})
     latitude?: number;
 
-    @Column({name: 'longitude', type: 'float8'})
+    @Column({name: 'longitude', type: 'float8', nullable: true})
     longitude?: number;
 }
