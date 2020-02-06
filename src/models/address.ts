@@ -6,6 +6,9 @@ export default class Address {
     street?: string;
 
     @Column({nullable: true})
+    landmark?: string;
+
+    @Column({nullable: true})
     area?: string;
 
     @Column({nullable: true})

@@ -16,7 +16,7 @@ export const createDonor = asyncMiddleware(
         if (await user!.isDonor()) {
             throw HttpError.unprocessableEntity(
                 ErrorCodes.alreadyExist,
-                'Already registered for donation'
+                'User already registered for donation'
             );
         }
 
