@@ -1,12 +1,12 @@
 import {Column} from 'typeorm';
 
-interface LocationParams {
+interface CoordinateParams {
     latitude: number;
     longitude: number;
 }
 
-export default class Location {
-    constructor(params?: LocationParams) {
+export default class Coordinate {
+    constructor(params?: CoordinateParams) {
         if (params) {
             this.longitude = params.longitude;
             this.latitude = params.latitude;

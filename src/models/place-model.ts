@@ -1,12 +1,12 @@
 import BaseEntity from './base-entity';
 import {Entity, Column, OneToMany} from 'typeorm';
-import Location from './location';
+import Coordinate from './coordinate';
 import DonationRequest from './dr-model';
 
 interface PlaceParams {
     name: string,
     address: string,
-    location: Location,
+    coordinate: Coordinate,
     phoneNumber: string,
     gmapsId: string
 }
@@ -18,7 +18,7 @@ export default class Place extends BaseEntity {
         if (!params) return;
         this.name = params.name;
         this.address = params.address;
-        this.location = params.location;
+        this.coordinate = params.coordinate;
         this.phoneNumber = params.phoneNumber;
         this.gmapsId = params.gmapsId;
     }
@@ -29,8 +29,8 @@ export default class Place extends BaseEntity {
     @Column()
     address!: string;
 
-    @Column(type => Location, {prefix: ''})
-    location!: Location;
+    @Column(type => Coordinate, {prefix: ''})
+    coordinate!: Coordinate;
 
     @Column()
     phoneNumber!: string;
