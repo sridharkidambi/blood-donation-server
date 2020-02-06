@@ -46,3 +46,7 @@ export const routeMaker = (resource: string) => {
 };
 
 export const getValues = (obj: any) => Object.keys(obj).map(o => obj[o]);
+
+export const safeJoin = (...values: string[]): string => {
+    return values.filter(v => v).join(', ')
+};

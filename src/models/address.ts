@@ -1,7 +1,7 @@
 import {Column} from "typeorm";
 import Coordinate from "./coordinate";
 
-interface AddressParam {
+export interface AddressParam {
     street?: string,
     landmark?: string,
     area?: string,
@@ -10,7 +10,7 @@ interface AddressParam {
     state?: string,
     country?: string,
     fallbackAddress?: string,
-    coordinate: Coordinate,
+    coordinate?: Coordinate,
 }
 
 export default class Address {
