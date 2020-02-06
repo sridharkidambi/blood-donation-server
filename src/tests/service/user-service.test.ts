@@ -32,14 +32,15 @@ describe('user service', () => {
             await user.save();
 
             const place = new Place({
-                address: '',
-                gmapsId: '',
-                coordinate: new Coordinate({
-                    latitude: 1,
-                    longitude: 2,
-                }),
                 name: '',
-                phoneNumber: '112233123'
+                gmapsId: '',
+                phoneNumber: '112233123',
+                address: {
+                    coordinate: {
+                        latitude: 1,
+                        longitude: 2,
+                    }
+                },
             });
             await place.save();
 
@@ -48,7 +49,7 @@ describe('user service', () => {
                 attenderPhoneNumber: '9988998898',
                 notes: '',
                 patientName: 'test patient',
-                requester: Promise.resolve(user),
+                requester: user,
                 requiredAsap: true,
                 requiredBloodGroup: 'AB+',
                 unitsRequired: 2,

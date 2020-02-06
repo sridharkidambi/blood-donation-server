@@ -1,4 +1,4 @@
-enum BloodType {
+enum BloodGroup {
     A_POSITIVE = 'A+',
     O_POSITIVE = 'O+',
     B_POSITIVE = 'B+',
@@ -10,4 +10,4 @@ enum BloodType {
     ANY = 'ANY',
 }
 
-export default BloodType;
+export default BloodGroup;

@@ -1,7 +1,7 @@
 import {validate} from '../middlewares/common';
 import {body} from 'express-validator';
 import Gender from '../models/gender';
-import BloodType from '../models/blood-types';
+import BloodType from '../models/blood-group';
 import {getValues} from '../common/utils';
 
 const validGenders = getValues(Gender);

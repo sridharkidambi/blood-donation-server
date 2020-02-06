@@ -1,7 +1,7 @@
 import {body} from 'express-validator';
 import {validate} from '../middlewares/common';
 import {getValues} from "../common/utils";
-import BloodType from "../models/blood-types";
+import BloodType from "../models/blood-group";
 
 const validBloodTypes = getValues(BloodType);
 

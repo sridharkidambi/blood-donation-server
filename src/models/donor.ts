@@ -1,7 +1,7 @@
 import BaseEntity from './base-entity';
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 import User from './user';
-import BloodType from './blood-types';
+import BloodType from './blood-group';
 import Gender from './gender';
 import Coordinate from './coordinate';
 import Address from "./address";
@@ -16,7 +16,7 @@ export default class Donor extends BaseEntity {
     @JoinColumn({ name: 'user_id' })
     user!: User;
 
-    @Column(type => Address, {prefix: ''})
+    @Column(type => Address, {prefix: 'address_'})
     address!: Address;
 
     @Column()

@@ -4,7 +4,7 @@ import User from './user';
 import Place from './place';
 
 interface DonationRequestParams {
-    requester: Promise<User>,
+    requester: User,
     venue: Place,
     patientName: string,
     requiredBloodGroup: string,
@@ -21,7 +21,7 @@ export default class DonationRequest extends BaseEntity {
     constructor(params?: DonationRequestParams) {
         super();
         if (!params) return;
-        this.requester = params.requester;
+        this.requester = Promise.resolve(params.requester);
         this.venue = params.venue;
         this.patientName = params.patientName;
         this.requiredBloodGroup = params.requiredBloodGroup;

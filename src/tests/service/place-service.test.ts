@@ -2,7 +2,6 @@ import {Connection} from "typeorm";
 import {getConnection} from "../../db";
 import {findOrCreatePlace} from "../../service/place-service";
 import Place from "../../models/place";
-import Coordinate from "../../models/coordinate";
 
 describe('place service', () => {
     let db: Connection;
@@ -39,12 +38,14 @@ describe('place service', () => {
         it('should return the existing entry', async done => {
             const eiffelTower = "ChIJLU7jZClu5kcR4PcOOO6p3I0";
 
-            const place = new Place();
-            place.coordinate = new Coordinate({latitude: 1, longitude: 1});
-            place.address = "address";
-            place.gmapsId = eiffelTower;
-            place.phoneNumber = "9988998899";
-            place.name = "name";
+            const place = new Place({
+                name: "name",
+                phoneNumber: "9988998899",
+                gmapsId: eiffelTower,
+                address: {
+                    coordinate: {latitude: 1, longitude: 1}
+                }
+            });
             await place.save();
 
             expect(await Place.count()).toBe(1);
