@@ -1,5 +1,5 @@
 import {createConnection} from 'typeorm';
-import {entities} from './models';
+import models from './models';
 import config from './config';
 import {SnakeNamingStrategy} from './common/snakecase-naming-strategy';
 
@@ -11,7 +11,7 @@ export const getConnection = () => {
         username: config.dbUser,
         password: config.dbPassword,
         database: config.dbName,
-        entities: entities,
+        entities: models,
         migrations: ["migration/*.ts"],
         cli: {migrationsDir: "migration"},
         synchronize: true,
