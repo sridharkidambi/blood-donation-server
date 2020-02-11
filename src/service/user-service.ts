@@ -2,7 +2,7 @@ import User from '../models/user';
 import {classToPlain} from 'class-transformer';
 import {generateToken} from '../auth';
 import {encrypt, verifyHash} from './hash';
-import DonationRequest from "../models/donation-request";
+import Donation from "../models/donation";
 
 
 export const findUserByEmail = async (emailAddress: string) => {
@@ -47,10 +47,10 @@ export const login = async (phoneNumber: string, password: string) => {
     return userData;
 };
 
-export async function userDonationRequests(userId: number): Promise<DonationRequest[] | null> {
+export async function userRequests(userId: number): Promise<Donation[] | null> {
     const user = await User.findOne(userId);
     if (!user) return null;
-    return await user.donationRequests;
+    return await user.requests;
 };
 
 export const loginViaEmail = async (

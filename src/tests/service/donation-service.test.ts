@@ -1,7 +1,7 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
-import {createDonationRequest} from "../../service/donation-request-service";
-import {CreateRequestDto} from "../../models/create-request-dto";
+import {createDonation} from "../../service/donation-service";
+import {CreateDonationDto} from "../../models/create-donation-dto";
 import {plainToClass} from "class-transformer";
 import User from "../../models/user";
 
@@ -25,7 +25,7 @@ describe('donation request service', () => {
         await db.close();
     });
 
-    describe('createDonationRequest', () => {
+    describe('createDonation', () => {
         it('should create a donation request successfully', async done => {
             const user = plainToClass(User, {
                 name: 'Test User',
@@ -35,7 +35,7 @@ describe('donation request service', () => {
             });
             await user.save();
 
-            const params: CreateRequestDto = {
+            const params: CreateDonationDto = {
                 attenderName: "Test Attender",
                 attenderPhoneNumber: "9988776655",
                 patientName: "Test Patient",
@@ -47,7 +47,7 @@ describe('donation request service', () => {
                 venueGmapsId: "ChIJE21tB2RdUjoRVStsX3KYeeU" // gem hospital, chennai
             };
 
-            const request = await createDonationRequest(params);
+            const request = await createDonation(params);
 
             expect(request.id).toBeTruthy();
 

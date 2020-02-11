@@ -1,9 +1,10 @@
-import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
 import BaseEntity from './base-entity';
 import User from './user';
 import Place from './place';
+import Donor from "./donor";
 
-interface DonationRequestParams {
+interface DonationParams {
     requester: User,
     venue: Place,
     patientName: string,
@@ -17,8 +18,8 @@ interface DonationRequestParams {
 }
 
 @Entity()
-export default class DonationRequest extends BaseEntity {
-    constructor(params?: DonationRequestParams) {
+export default class Donation extends BaseEntity {
+    constructor(params?: DonationParams) {
         super();
         if (!params) return;
         this.requester = Promise.resolve(params.requester);
@@ -33,11 +34,11 @@ export default class DonationRequest extends BaseEntity {
         this.notes = params.notes;
     }
 
-    @ManyToOne(type => User, user => user.donationRequests, {nullable: false})
+    @ManyToOne(type => User, user => user.requests, {nullable: false})
     @JoinColumn()
     requester!: Promise<User>;
 
-    @ManyToOne(type => Place, place => place.donationRequests, {
+    @ManyToOne(type => Place, {
         nullable: false,
         eager: true,
     })

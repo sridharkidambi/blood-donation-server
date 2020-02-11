@@ -1,10 +1,10 @@
 import {Connection} from 'typeorm';
 import {getConnection} from '../../db';
 import User from "../../models/user";
-import DonationRequest from "../../models/donation-request";
+import Donation from "../../models/donation";
 import Place from "../../models/place";
 import Coordinate from '../../models/coordinate';
-import {userDonationRequests} from "../../service/user-service";
+import {userRequests} from "../../service/user-service";
 
 describe('user service', () => {
     let db: Connection;
@@ -21,7 +21,7 @@ describe('user service', () => {
     afterEach(clear);
     afterAll(clear);
 
-    describe('userDonationRequests', () => {
+    describe('userRequests', () => {
         it('should get a users donation requests', async () => {
             const user = new User({
                 name: 'test user',
@@ -44,7 +44,7 @@ describe('user service', () => {
             });
             await place.save();
 
-            const donationRequest = new DonationRequest({
+            const donation = new Donation({
                 attenderName: 'test',
                 attenderPhoneNumber: '9988998898',
                 notes: '',
@@ -55,11 +55,11 @@ describe('user service', () => {
                 unitsRequired: 2,
                 venue: place,
             });
-            await donationRequest.save();
+            await donation.save();
 
-            const donationRequests = await userDonationRequests(user.id);
-            expect(donationRequests!.length).toBe(1);
-            expect(donationRequests![0].id).toBe(donationRequest.id);
+            const donations = await userRequests(user.id);
+            expect(donations!.length).toBe(1);
+            expect(donations![0].id).toBe(donation.id);
         })
     });
 });

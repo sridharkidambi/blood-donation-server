@@ -57,9 +57,9 @@ export const registerUser = asyncMiddleware(
     }
 );
 
-export const getUserDonationRequests = asyncMiddleware(
+export const getUserRequests = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const userId = req.params.userId;
-        return await service.userDonationRequests(userId);
+        return await service.userRequests(userId);
     }
 );

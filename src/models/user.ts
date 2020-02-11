@@ -2,7 +2,7 @@ import {Column, Entity, OneToMany, OneToOne} from 'typeorm';
 import {Exclude} from 'class-transformer';
 import BaseEntity from './base-entity';
 import Donor from './donor';
-import DonationRequest from './donation-request';
+import Donation from './donation';
 
 interface UserParams {
     name: string;
@@ -39,10 +39,10 @@ export default class User extends BaseEntity {
     donor!: Promise<Donor>;
 
     @OneToMany(
-        type => DonationRequest,
-        donationRequest => donationRequest.requester
+        type => Donation,
+        donation => donation.requester
     )
-    donationRequests!: Promise<DonationRequest[]>;
+    requests!: Promise<Donation[]>;
 
     async isDonor(): Promise<boolean> {
         return (await this.donor) != null;

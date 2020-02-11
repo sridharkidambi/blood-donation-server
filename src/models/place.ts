@@ -1,7 +1,7 @@
 import BaseEntity from './base-entity';
 import {Entity, Column, OneToMany} from 'typeorm';
 import Coordinate from './coordinate';
-import DonationRequest from './donation-request';
+import Donation from './donation';
 import Address from "./address";
 
 interface PlaceParams {
@@ -33,7 +33,4 @@ export default class Place extends BaseEntity {
 
     @Column({unique: true})
     gmapsId!: string;
-
-    @OneToMany(type => DonationRequest, dr => dr.venue)
-    donationRequests!: Promise<DonationRequest[]>;
 }

@@ -5,7 +5,7 @@ import BloodType from "../models/blood-group";
 
 const validBloodTypes = getValues(BloodType);
 
-export const createDonationRequestValidator = validate(
+export const createDonationValidator = validate(
     body('patientName').isLength({min: 3, max: 20}),
     body('requiredBloodGroup').isIn(validBloodTypes),
     body('unitsRequired').isNumeric(),

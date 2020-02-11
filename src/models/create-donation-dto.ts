@@ -1,4 +1,4 @@
-export interface CreateRequestDto {
+export interface CreateDonationDto {
     patientName: string
     requiredBloodGroup: string
     unitsRequired: number

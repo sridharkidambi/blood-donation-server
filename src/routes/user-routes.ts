@@ -28,8 +28,8 @@ export default [
         handler: [validator.registerUserValidator, controller.registerUser]
     },
     {
-        path: route.single('/donation_requests'),
+        path: route.single('/requests'),
         method: 'get',
-        handler: [controller.getUserDonationRequests]
+        handler: [controller.getUserRequests]
     }
 ];
