@@ -25,26 +25,26 @@ export default class User extends BaseEntity {
     @Column()
     name!: string;
 
-    @Column({ unique: true })
+    @Column({unique: true})
     emailAddress!: string;
 
-    @Column({ unique: true })
+    @Column({unique: true})
     phoneNumber!: string;
 
     @Column({nullable: true})
-    @Exclude({ toPlainOnly: true })
+    @Exclude({toPlainOnly: true})
     password!: string;
+
+    @Column()
+    donorId!: number;
 
     @OneToOne(type => Donor, donor => donor.user)
     donor!: Promise<Donor>;
 
-    @OneToMany(
-        type => Donation,
-        donation => donation.requester
-    )
+    @OneToMany(type => Donation, donation => donation.requester)
     requests!: Promise<Donation[]>;
 
-    async isDonor(): Promise<boolean> {
-        return (await this.donor) != null;
+    get isDonor(): boolean {
+        return this.donorId > 0;
     }
 }

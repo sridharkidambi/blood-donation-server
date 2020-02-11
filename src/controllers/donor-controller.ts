@@ -13,7 +13,7 @@ export const createDonor = asyncMiddleware(
         const userId = (req as any).payload.userId;
 
         const user = await findUserById(userId);
-        if (await user!.isDonor()) {
+        if (user!.isDonor) {
             throw HttpError.unprocessableEntity(
                 ErrorCodes.alreadyExist,
                 'User already registered for donation'

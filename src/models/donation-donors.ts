@@ -1,4 +1,4 @@
-import {Entity, Column, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne} from "typeorm";
 
 import BaseEntity from "./base-entity";
 import Donation from "./donation";
@@ -11,4 +11,10 @@ export default class DonationDonor extends BaseEntity {
 
     @Column()
     donorId!: number;
+
+    @ManyToOne(type => Donation, donation => donation.donors)
+    public donation!: Donation;
+
+    @ManyToOne(type => Donor, donor => donor.donations)
+    public donor!: Donor;
 }

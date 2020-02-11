@@ -3,6 +3,7 @@ import BaseEntity from './base-entity';
 import User from './user';
 import Place from './place';
 import Donor from "./donor";
+import DonationDonor from "./donation-donors";
 
 interface DonationParams {
     requester: User,
@@ -68,4 +69,7 @@ export default class Donation extends BaseEntity {
 
     @Column({type: 'text', nullable: true})
     notes!: string;
+
+    @OneToMany(type => DonationDonor, donationDonor => donationDonor.donation)
+    public donors!: DonationDonor[];
 }

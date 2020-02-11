@@ -1,10 +1,10 @@
 import BaseEntity from './base-entity';
-import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
+import {Column, Entity, JoinColumn, OneToMany, OneToOne} from 'typeorm';
 import User from './user';
 import BloodType from './blood-group';
 import Gender from './gender';
-import Coordinate from './coordinate';
 import Address from "./address";
+import DonationDonor from "./donation-donors";
 
 @Entity()
 export default class Donor extends BaseEntity {
@@ -27,4 +27,7 @@ export default class Donor extends BaseEntity {
 
     @Column()
     bloodType!: BloodType;
+
+    @OneToMany(type => DonationDonor, donationDonor => donationDonor.donor)
+    donations!: DonationDonor[];
 }
