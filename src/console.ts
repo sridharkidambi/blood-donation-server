@@ -1,6 +1,6 @@
 import repl from "repl";
 import {getConnection} from './db';
-import models from './models';
+import {models} from './models';
 
 (async function () {
     const db = await getConnection();
@@ -10,4 +10,8 @@ import models from './models';
 
     // attach modules to the repl context
     replServer.context.db = db;
+
+    Object.entries(models).forEach(([key, val]) => {
+        replServer.context[key] = val;
+    });
 })();

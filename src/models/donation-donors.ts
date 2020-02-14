@@ -12,9 +12,23 @@ export default class DonationDonor extends BaseEntity {
     @Column()
     donorId!: number;
 
+    @Column()
+    status!: DonorStatus;
+
+    @Column()
+    availableAt!: Date;
+
     @ManyToOne(type => Donation, donation => donation.donors)
-    public donation!: Donation;
+    donation!: Donation;
 
     @ManyToOne(type => Donor, donor => donor.donations)
-    public donor!: Donor;
+    donor!: Donor;
+}
+
+export enum DonorStatus {
+    REQUESTED = 'requested',
+    DECLINED = 'declined',
+    ACCEPTED = 'accepted',
+    DONATED = 'donated',
+    CANCELLED = 'cancelled'
 }
