@@ -7,7 +7,7 @@
         "postinstall": "npx tsc",
         "start": "NODE_ENV=production npx pm2 start pm2.yaml",
         "console": "NODE_ENV=development tsc && node --experimental-repl-await ./dist/console.js",
-        "dev": "NODE_ENV=development tsc-watch --onSuccess 'node ./dist/server.js'",
+        "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
         "test": "NODE_ENV=test jest --coverage --verbose --detectOpenHandles",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
@@ -37,7 +37,7 @@
         "pm2": "^3.5.1",
         "reflect-metadata": "^0.1.13",
         "swagger-ui-express": "^4.0.7",
-        "typeorm": "^0.2.18"
+        "typeorm": "^0.2.25"
     },
     "devDependencies": {
         "@types/jest": "^24.0.17",

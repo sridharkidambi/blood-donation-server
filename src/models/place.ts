@@ -7,7 +7,7 @@ import Address from "./address";
 interface PlaceParams {
     name: string,
     address?: Address,
-    phoneNumber: string,
+    phoneNumber?: string,
     gmapsId: string
 }
 
@@ -28,8 +28,8 @@ export default class Place extends BaseEntity {
     @Column(type => Address, {prefix: 'address_'})
     address?: Address;
 
-    @Column()
-    phoneNumber!: string;
+    @Column({nullable: true})
+    phoneNumber?: string;
 
     @Column({unique: true})
     gmapsId!: string;

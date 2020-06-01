@@ -35,7 +35,7 @@ export default class User extends BaseEntity {
     @Exclude({toPlainOnly: true})
     password!: string;
 
-    @Column()
+    @Column({nullable: true})
     donorId!: number;
 
     @OneToOne(type => Donor, donor => donor.user)
