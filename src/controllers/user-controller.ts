@@ -1,10 +1,10 @@
-import {Request, Response, NextFunction} from 'express';
-import {plainToClass, classToPlain} from 'class-transformer';
+import { Request, Response, NextFunction } from 'express';
+import { plainToClass, classToPlain } from 'class-transformer';
 import User from '../models/user';
 import HttpError from '../errors/http-error';
 import * as service from '../service/user-service';
-import {asyncMiddleware} from '../middlewares/common';
-import {ErrorCodes, ErrorMessage} from '../errors/error-codes';
+import { asyncMiddleware } from '../middlewares/common';
+import { ErrorCodes, ErrorMessage } from '../errors/error-codes';
 
 export const getUser = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -31,7 +31,7 @@ export const updateUser = async (
 
 export const login = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const {phoneNumber, password} = req.body;
+        const { phoneNumber, password } = req.body;
         const responseData = await service.login(phoneNumber, password);
 
         if (!responseData) {
@@ -59,7 +59,8 @@ export const registerUser = asyncMiddleware(
 
 export const getUserRequests = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const userId = req.params.userId;
-        return await service.userRequests(userId);
+        const { userId } = req.params;
+        const requests = await service.userRequests(userId);
+        res.json(requests);
     }
 );

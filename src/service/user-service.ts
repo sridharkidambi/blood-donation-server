@@ -1,16 +1,16 @@
 import User from '../models/user';
-import {classToPlain} from 'class-transformer';
-import {generateToken} from '../auth';
-import {encrypt, verifyHash} from './hash';
+import { classToPlain } from 'class-transformer';
+import { generateToken } from '../auth';
+import { encrypt, verifyHash } from './hash';
 import Donation from "../models/donation";
 
 
 export const findUserByEmail = async (emailAddress: string) => {
-    return await User.findOne({emailAddress})
+    return await User.findOne({ emailAddress })
 };
 
 export const findUserByPhoneNumber = async (phoneNumber: string) => {
-    return await User.findOne({phoneNumber});
+    return await User.findOne({ phoneNumber });
 };
 
 export const findUserById = async (id: number) => {
@@ -20,7 +20,7 @@ export const findUserById = async (id: number) => {
 export const createAndLoginUser = async (user: User) => {
     await createUser(user);
     const result = classToPlain(user);
-    (result as any).token = generateToken({userId: user.id});
+    (result as any).token = generateToken({ userId: user.id });
     return result;
 };
 
@@ -42,7 +42,7 @@ export const login = async (phoneNumber: string, password: string) => {
     if (!passwordMatch) return null;
 
     const userData = classToPlain(user);
-    (userData as any).token = generateToken({userId: user.id});
+    (userData as any).token = generateToken({ userId: user.id });
 
     return userData;
 };

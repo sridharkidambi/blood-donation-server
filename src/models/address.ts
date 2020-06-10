@@ -9,7 +9,6 @@ export interface AddressParam {
     pincode: number,
     state?: string,
     country?: string,
-    fallbackAddress?: string,
     coordinate?: Coordinate,
 }
 
@@ -23,7 +22,6 @@ export default class Address {
         this.pincode = params.pincode;
         this.state = params.state;
         this.country = params.country;
-        this.fallbackAddress = params.fallbackAddress;
         this.coordinate = params.coordinate;
     }
 
