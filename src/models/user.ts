@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import BaseEntity from './base-entity';
 import Donor from './donor';
@@ -35,16 +35,13 @@ export default class User extends BaseEntity {
     @Exclude({ toPlainOnly: true })
     password!: string;
 
-    @Column({ nullable: true })
-    donorId!: number;
-
-    @OneToOne(type => Donor, donor => donor.user)
+    @OneToOne(type => Donor, donor => donor.user, { eager: true })
     donor!: Promise<Donor>;
 
     @OneToMany(type => Donation, donation => donation.requester)
     requests!: Promise<Donation[]>;
 
-    get isDonor(): boolean {
-        return this.donorId > 0;
+    async isDonor(): Promise<boolean> {
+        return !!(await this.donor);
     }
 }

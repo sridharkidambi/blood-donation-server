@@ -5,6 +5,7 @@
     "main": "src/server.js",
     "scripts": {
         "postinstall": "npx tsc",
+        "seed-db": "npx tsc && node ./dist/seed-db.js",
         "start": "NODE_ENV=production npx pm2 start pm2.yaml",
         "console": "NODE_ENV=development tsc && node --experimental-repl-await ./dist/console.js",
         "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
@@ -32,6 +33,7 @@
         "express": "^4.17.1",
         "express-validator": "^6.1.1",
         "jsonwebtoken": "^8.5.1",
+        "moment": "^2.26.0",
         "morgan": "^1.9.1",
         "pg": "^8.2.1",
         "pm2": "^4.4.0",
@@ -40,8 +42,10 @@
         "typeorm": "^0.2.25"
     },
     "devDependencies": {
+        "@types/faker": "^4.1.12",
         "@types/jest": "^24.0.17",
         "@types/supertest": "^2.0.8",
+        "faker": "^4.1.0",
         "jest": "^26.0.1",
         "supertest": "^4.0.2",
         "ts-jest": "^26.1.0",

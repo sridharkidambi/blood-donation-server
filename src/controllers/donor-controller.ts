@@ -9,7 +9,7 @@ import { ErrorCodes } from '../errors/error-codes';
 
 export const createDonor = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const donorInfo = plainToClass(Donor, req.body);
+        const params: Donor = plainToClass(Donor, req.body as object);
         const userId = (req as any).payload.userId;
 
         const user = await findUserById(userId);
@@ -20,7 +20,7 @@ export const createDonor = asyncMiddleware(
             );
         }
 
-        await service.createDonor(donorInfo, userId);
-        res.status(201).send(classToPlain(donorInfo));
+        await service.createDonor(params, userId);
+        res.status(201).send(classToPlain(params));
     }
 );

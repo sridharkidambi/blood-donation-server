@@ -6,7 +6,7 @@ export interface AddressParam {
     landmark?: string,
     area?: string,
     city?: string,
-    pincode: number,
+    pincode: string,
     state?: string,
     country?: string,
     coordinate?: Coordinate,
@@ -38,7 +38,7 @@ export default class Address {
     city?: string;
 
     @Column({ nullable: true })
-    pincode?: number;
+    pincode?: string;
 
     @Column({ name: 'state', nullable: true })
     state?: string;

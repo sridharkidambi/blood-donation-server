@@ -3,20 +3,20 @@ import { Exclude } from "class-transformer";
 import BaseEntity from './base-entity';
 import User from './user';
 import Place from './place';
-import Donor from "./donor";
 import DonationDonor from "./donation-donors";
+import BloodGroup from './blood-group';
 
 interface DonationParams {
     requester: User,
     venue: Place,
     patientName: string,
-    requiredBloodGroup: string,
+    requiredBloodGroup: BloodGroup,
     unitsRequired: number,
     requiredOn?: Date,
     requiredAsap: boolean,
     attenderName: string,
     attenderPhoneNumber: string,
-    notes: string,
+    notes?: string,
 }
 
 @Entity()
@@ -55,7 +55,7 @@ export default class Donation extends BaseEntity {
     patientName!: string;
 
     @Column()
-    requiredBloodGroup!: string;
+    requiredBloodGroup!: BloodGroup;
 
     @Column()
     unitsRequired!: number;
@@ -73,7 +73,7 @@ export default class Donation extends BaseEntity {
     attenderPhoneNumber!: string;
 
     @Column({ type: 'text', nullable: true })
-    notes!: string;
+    notes?: string;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donation)
     public donors!: DonationDonor[];

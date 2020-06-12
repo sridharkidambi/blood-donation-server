@@ -124,6 +124,6 @@ const addressFromPlaceResult = (components: {
         city: administrative_area_level_2 || locality,
         state: administrative_area_level_1,
         country,
-        pincode: parseInt(postal_code),
+        pincode: postal_code,
     };
 };

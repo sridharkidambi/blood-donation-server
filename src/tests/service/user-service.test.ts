@@ -4,6 +4,7 @@ import User from "../../models/user";
 import Donation from "../../models/donation";
 import Place from "../../models/place";
 import {userRequests} from "../../service/donation-service";
+import BloodGroup from '../../models/blood-group';
 
 describe('user service', () => {
     let db: Connection;
@@ -50,7 +51,7 @@ describe('user service', () => {
                 patientName: 'test patient',
                 requester: user,
                 requiredAsap: true,
-                requiredBloodGroup: 'AB+',
+                requiredBloodGroup: BloodGroup['AB_POSITIVE'],
                 unitsRequired: 2,
                 venue: place,
             });

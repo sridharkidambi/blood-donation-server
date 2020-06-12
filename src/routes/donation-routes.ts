@@ -16,5 +16,10 @@ export default [
         path: '/users/:userId/requests/:requestId',
         method: 'get',
         handler: [controller.getUserRequest]
+    },
+    {
+        path: '/users/:userId/requests/:requestId/search_donors',
+        method: 'get',
+        handler: [controller.searchDonors]
     }
 ]

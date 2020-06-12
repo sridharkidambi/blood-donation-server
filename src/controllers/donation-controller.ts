@@ -1,9 +1,9 @@
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { classToPlain } from 'class-transformer';
-import {asyncMiddleware} from '../middlewares/common';
+import { asyncMiddleware } from '../middlewares/common';
 import * as service from "../service/donation-service";
-import {currentUserId} from "../common/helper";
-import {CreateDonationDto} from "../models/create-donation-dto";
+import { currentUserId } from "../common/helper";
+import { CreateDonationDto } from "../models/create-donation-dto";
 import User from '../models/user';
 
 export const createRequest = asyncMiddleware(
@@ -37,3 +37,10 @@ export const getUserRequest = asyncMiddleware(
     }
 );
 
+export const searchDonors = asyncMiddleware(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { userId, requestId, offset = 0 } = req.params;
+        const results = await service.searchDonors(userId, requestId, offset);
+        res.json(results);
+    }
+)
