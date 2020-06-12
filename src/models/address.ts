@@ -1,4 +1,4 @@
-import {Column} from "typeorm";
+import { Column } from "typeorm";
 import Coordinate from "./coordinate";
 
 export interface AddressParam {
@@ -25,30 +25,27 @@ export default class Address {
         this.coordinate = params.coordinate;
     }
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     street?: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     landmark?: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     area?: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     city?: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     pincode?: number;
 
-    @Column({name: 'state', nullable: true})
+    @Column({ name: 'state', nullable: true })
     state?: string;
 
-    @Column({name: 'country', nullable: true})
+    @Column({ name: 'country', nullable: true })
     country?: string;
 
-    @Column({name: 'fallback_address', nullable: true})
-    fallbackAddress?: string;
-
-    @Column(type => Coordinate, {prefix: ''})
+    @Column(type => Coordinate, { prefix: '' })
     coordinate?: Coordinate;
 }

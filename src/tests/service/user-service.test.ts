@@ -3,8 +3,7 @@ import {getConnection} from '../../db';
 import User from "../../models/user";
 import Donation from "../../models/donation";
 import Place from "../../models/place";
-import Coordinate from '../../models/coordinate';
-import {userRequests} from "../../service/user-service";
+import {userRequests} from "../../service/donation-service";
 
 describe('user service', () => {
     let db: Connection;

@@ -1,10 +1,8 @@
-import Place from "./place";
-
 export interface CreateDonationDto {
     patientName: string
     requiredBloodGroup: string
     unitsRequired: number
-    venue: Place
+    venueGmapsId: string
     requiredOn?: Date
     requiredAsap: boolean
     attenderName: string

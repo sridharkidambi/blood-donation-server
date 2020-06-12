@@ -3,8 +3,18 @@ import * as validator from '../validators/donation-validator';
 
 export default [
     {
-        path: '/donation_request',
+        path: '/users/:userId/requests',
         method: 'post',
         handler: [validator.createDonationValidator, controller.createRequest]
     },
+    {
+        path: '/users/:userId/requests',
+        method: 'get',
+        handler: [controller.getUserRequests]
+    },
+    {
+        path: '/users/:userId/requests/:requestId',
+        method: 'get',
+        handler: [controller.getUserRequest]
+    }
 ]

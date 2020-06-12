@@ -1,7 +1,5 @@
 import BaseEntity from './base-entity';
-import {Entity, Column, OneToMany} from 'typeorm';
-import Coordinate from './coordinate';
-import Donation from './donation';
+import { Entity, Column } from 'typeorm';
 import Address from "./address";
 
 interface PlaceParams {
@@ -25,12 +23,12 @@ export default class Place extends BaseEntity {
     @Column()
     name!: string;
 
-    @Column(type => Address, {prefix: 'address_'})
+    @Column(type => Address, { prefix: 'address_' })
     address?: Address;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     phoneNumber?: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     gmapsId!: string;
 }

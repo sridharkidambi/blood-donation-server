@@ -1,5 +1,5 @@
-import {Column, Entity, OneToMany, OneToOne} from 'typeorm';
-import {Exclude} from 'class-transformer';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import BaseEntity from './base-entity';
 import Donor from './donor';
 import Donation from './donation';
@@ -25,17 +25,17 @@ export default class User extends BaseEntity {
     @Column()
     name!: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     emailAddress!: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     phoneNumber!: string;
 
-    @Column({nullable: true})
-    @Exclude({toPlainOnly: true})
+    @Column({ nullable: true })
+    @Exclude({ toPlainOnly: true })
     password!: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     donorId!: number;
 
     @OneToOne(type => Donor, donor => donor.user)

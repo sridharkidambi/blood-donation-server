@@ -47,12 +47,6 @@ export const login = async (phoneNumber: string, password: string) => {
     return userData;
 };
 
-export async function userRequests(userId: number): Promise<Donation[] | null> {
-    const user = await User.findOne(userId);
-    if (!user) return null;
-    return await user.requests;
-};
-
 export const loginViaEmail = async (
     phoneNumber: string,
     password: string

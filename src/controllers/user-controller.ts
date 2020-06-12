@@ -56,11 +56,3 @@ export const registerUser = asyncMiddleware(
         }
     }
 );
-
-export const getUserRequests = asyncMiddleware(
-    async (req: Request, res: Response, next: NextFunction) => {
-        const { userId } = req.params;
-        const requests = await service.userRequests(userId);
-        res.json(requests);
-    }
-);

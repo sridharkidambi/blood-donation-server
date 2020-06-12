@@ -6,30 +6,25 @@ const route = routeMaker('user');
 
 export default [
     {
-        path: route.single(''),
+        path: '/users/:userId',
         method: 'get',
         handler: [validator.getUserValidator, controller.getUser]
     },
     {
-        path: route.collection(''),
+        path: '/users',
         method: 'put',
         handler: [validator.updateUserValidator, controller.updateUser]
     },
     {
-        path: route.collection('/login'),
+        path: '/users/login',
         method: 'post',
         noAuth: true,
         handler: [validator.loginValidator, controller.login]
     },
     {
-        path: route.collection('/register'),
+        path: '/users/register',
         method: 'post',
         noAuth: true,
         handler: [validator.registerUserValidator, controller.registerUser]
-    },
-    {
-        path: route.single('/requests'),
-        method: 'get',
-        handler: [controller.getUserRequests]
     }
 ];
