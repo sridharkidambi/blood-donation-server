@@ -6,5 +6,11 @@ export default [
         path: '/donor',
         method: 'post',
         handler: [validator.createDonorValidator, controller.createDonor]
+    },
+    {
+        path: '/users/:userId/donor',
+        method: 'get',
+        handler: [controller.getDonor]
     }
+
 ];

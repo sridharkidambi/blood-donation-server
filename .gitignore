@@ -4,3 +4,4 @@ coverage/
 .history/
 .idea/
 .vscode/
+.env.production

@@ -13,14 +13,22 @@ export const createDonor = asyncMiddleware(
         const userId = (req as any).payload.userId;
 
         const user = await findUserById(userId);
-        if (user!.isDonor) {
+        const isDonor = await user!.isDonor();
+        if (isDonor) {
             throw HttpError.unprocessableEntity(
                 ErrorCodes.alreadyExist,
                 'User already registered for donation'
             );
         }
-
         await service.createDonor(params, userId);
         res.status(201).send(classToPlain(params));
     }
 );
+
+export const getDonor = asyncMiddleware(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { userId } = req.params;
+        const donor = await service.getDonor(userId);
+        res.json(donor);
+    }
+)
