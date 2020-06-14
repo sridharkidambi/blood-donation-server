@@ -1,9 +1,9 @@
 import axios from 'axios';
 import config from "../config";
 import Place from "../models/place";
-import {plainToClass} from "class-transformer";
-import {AddressParam} from "../models/address";
-import {safeJoin} from "../common/utils";
+import { plainToClass } from "class-transformer";
+import { AddressParam } from "../models/address";
+import { safeJoin } from "../common/utils";
 
 
 export const searchPlace = async (input: string, location: string) => {
@@ -19,7 +19,7 @@ export const searchPlace = async (input: string, location: string) => {
     };
 
     try {
-        const placesResponse = await axios.get(url, {params});
+        const placesResponse = await axios.get(url, { params });
         const result = (placesResponse.data).predictions.map((prediction: any) => ({
             mainText: prediction.structured_formatting.main_text,
             secondaryText: prediction.structured_formatting.secondary_text,
@@ -42,8 +42,8 @@ export const placeDetail = async (placeId: string): Promise<Place> => {
         fields: 'name,place_id,international_phone_number,geometry,address_components',
     };
 
-    const response = await axios.get(url, {params});
-    const {data} = response;
+    const response = await axios.get(url, { params });
+    const { data } = response;
     if (data.status !== "OK") {
         throw new Error();
     }
@@ -51,7 +51,7 @@ export const placeDetail = async (placeId: string): Promise<Place> => {
 };
 
 export const findOrCreatePlace = async (gmapsId: string): Promise<Place> => {
-    const placeFromDb = await Place.findOne({gmapsId});
+    const placeFromDb = await Place.findOne({ gmapsId });
     if (placeFromDb) return placeFromDb;
 
     const place = await placeDetail(gmapsId);

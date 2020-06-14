@@ -6,15 +6,13 @@ import Place from "../models/place";
 import Donor from "../models/donor";
 import Donation from "../models/donation";
 import { findOrCreatePlace } from "./place-service";
-import { CreateDonationDto } from "../models/create-donation-dto";
 import { getMatchingBloodGroups } from "../helpers/donation-helper";
-import BloodGroup from "../models/blood-group";
 
 export const createDonation = async (
-    params: CreateDonationDto
+    params: Donation
 ): Promise<Donation> => {
     const user: User = (await findUserById(params.requesterId))!;
-    const venue: Place = await findOrCreatePlace(params.venueGmapsId);
+    const venue: Place = await findOrCreatePlace(params.venue.gmapsId);
 
     const donation = plainToClass(Donation, params);
     donation.requester = Promise.resolve(user);

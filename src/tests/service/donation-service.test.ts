@@ -1,9 +1,10 @@
-import {Connection} from 'typeorm';
-import {getConnection} from '../../db';
-import {createDonation} from "../../service/donation-service";
-import {CreateDonationDto} from "../../models/create-donation-dto";
-import {plainToClass} from "class-transformer";
+import { Connection } from 'typeorm';
+import { getConnection } from '../../db';
+import { createDonation } from "../../service/donation-service";
+import { plainToClass } from "class-transformer";
 import User from "../../models/user";
+import Donation from '../../models/donation';
+import BloodGroup from '../../models/blood-group';
 
 describe('donation request service', () => {
     let db: Connection;
@@ -35,19 +36,21 @@ describe('donation request service', () => {
             });
             await user.save();
 
-            const params: CreateDonationDto = {
+            const params = {
                 attenderName: "Test Attender",
                 attenderPhoneNumber: "9988776655",
                 patientName: "Test Patient",
                 requesterId: user.id,
                 requiredAsap: true,
-                requiredBloodGroup: "AB+",
+                requiredBloodGroup: BloodGroup.AB_POSITIVE,
                 requiredOn: undefined,
                 unitsRequired: 1,
-                venueGmapsId: "ChIJE21tB2RdUjoRVStsX3KYeeU" // gem hospital, chennai
+                venue: {
+                    gmapsId: "ChIJE21tB2RdUjoRVStsX3KYeeU" // gem hospital, chennai
+                }
             };
 
-            const request = await createDonation(params);
+            const request = await createDonation(params as Donation);
 
             expect(request.id).toBeTruthy();
 

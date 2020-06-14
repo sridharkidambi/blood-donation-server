@@ -3,12 +3,11 @@ import { classToPlain } from 'class-transformer';
 import { asyncMiddleware } from '../middlewares/common';
 import * as service from "../service/donation-service";
 import { currentUserId } from "../common/helper";
-import { CreateDonationDto } from "../models/create-donation-dto";
-import User from '../models/user';
+import Donation from '../models/donation';
 
 export const createRequest = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
-        const params: CreateDonationDto = req.body;
+        const params: Donation = req.body;
         params.requesterId = currentUserId(req);
 
         const donation = await service.createDonation(params);

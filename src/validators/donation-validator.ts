@@ -9,9 +9,9 @@ export const createDonationValidator = validate(
     body('patientName').isLength({ min: 3, max: 20 }),
     body('requiredBloodGroup').isIn(validBloodGroups),
     body('unitsRequired').isNumeric(),
-    body('venueGmapsId').exists(),
+    body('venue.gmapsId').exists(),
     // body('requiredOn').isISO8601().optional(),
-    // body('requiredAsap').isBoolean().optional(),
+    body('requiredAsap').isBoolean().optional(),
     body('attenderName').isLength({ min: 3, max: 20 }),
     body('attenderPhoneNumber').isLength({ max: 15, min: 10 })
 );
