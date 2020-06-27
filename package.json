@@ -6,7 +6,7 @@
     "scripts": {
         "postinstall": "npx tsc",
         "seed-db": "npx tsc && node ./dist/seed-db.js",
-        "start": "NODE_ENV=production npx pm2 start pm2.yaml",
+        "start": "NODE_ENV=production npx tsc && node ./dist/server.js",
         "console": "NODE_ENV=development tsc && node --experimental-repl-await ./dist/console.js",
         "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
         "test": "NODE_ENV=test jest --coverage --verbose --detectOpenHandles",
