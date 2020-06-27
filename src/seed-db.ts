@@ -1,18 +1,34 @@
 import faker from 'faker';
 import moment from 'moment';
 import User from './models/user';
-import { getConnection } from './db';
-import { encrypt } from './service/hash';
+import {getConnection} from './db';
+import {encrypt} from './service/hash';
 import Donor from './models/donor';
-import Address from './models/address';
 import Gender from './models/gender';
 import BloodGroup from './models/blood-group';
 import Coordinate from './models/coordinate';
-import { getValues } from './common/utils';
+import {getValues} from './common/utils';
 import Donation from './models/donation';
 import Place from './models/place';
 
 faker.locale = "en_IND";
+
+function fakePlace(): Place {
+    return new Place({
+        address: [
+            faker.address.streetAddress(),
+            faker.address.city(),
+            faker.address.zipCode(),
+            faker.address.state(),
+            "India"
+        ].join(", "),
+        gmapsId: faker.random.uuid(),
+        coordinate: new Coordinate({
+            latitude: parseFloat(faker.address.latitude()),
+            longitude: parseFloat(faker.address.longitude())
+        })
+    });
+}
 
 (async function () {
     const db = await getConnection();
@@ -47,29 +63,18 @@ faker.locale = "en_IND";
     async function seedDonors(users: User[]) {
         const donors: Donor[] = [];
 
-        users.forEach(async user => {
+        users.forEach(user => {
             const donor = new Donor({
                 userId: user.id,
-                address: new Address({
-                    street: faker.address.streetName(),
-                    landmark: undefined,
-                    area: 'sample',
-                    city: faker.address.city(),
-                    pincode: faker.address.zipCode(),
-                    state: faker.address.state(),
-                    country: 'india',
-                    coordinate: new Coordinate({
-                        latitude: parseFloat(faker.address.latitude()),
-                        longitude: parseFloat(faker.address.longitude())
-                    })
-                }),
+                residence: fakePlace(),
                 gender: randGender(),
                 bloodGroup: randBloodGroup(),
                 dob: faker.date.past(25),
                 lastDonatedOn: user.id % 3 == 0 ? faker.date.between(
                     moment().subtract(12, 'months').toDate(),
                     moment().subtract(1, 'month').toDate(),
-                ) : undefined
+                ) : undefined,
+                available: true,
             });
             donors.push(donor);
         });
@@ -77,34 +82,34 @@ faker.locale = "en_IND";
         return donors;
     }
 
-    async function seedPlaces() {
-        const places: Place[] = [];
-        for (let i = 0; i < 30; i++) {
-            const place = new Place({
-                name: faker.company.companyName() + ' Hospital',
-                address: new Address({
-                    street: faker.address.streetName(),
-                    landmark: undefined,
-                    area: 'sample',
-                    city: faker.address.city(),
-                    pincode: faker.address.zipCode(),
-                    state: faker.address.state(),
-                    country: 'india',
-                    coordinate: new Coordinate({
-                        latitude: parseFloat(faker.address.latitude()),
-                        longitude: parseFloat(faker.address.longitude())
-                    })
-                }),
-                phoneNumber: faker.phone.phoneNumber(),
-                gmapsId: faker.random.uuid()
-            });
-            places.push(place);
-        }
-        await Place.getRepository().save(places);
-        return places;
-    }
+    // async function seedPlaces() {
+    //     const places: Place[] = [];
+    //     for (let i = 0; i < 30; i++) {
+    //         const place = new Place({
+    //             name: faker.company.companyName() + ' Hospital',
+    //             address: new Address({
+    //                 street: faker.address.streetName(),
+    //                 landmark: undefined,
+    //                 area: 'sample',
+    //                 city: faker.address.city(),
+    //                 pincode: faker.address.zipCode(),
+    //                 state: faker.address.state(),
+    //                 country: 'india',
+    //                 coordinate: new Coordinate({
+    //                     latitude: parseFloat(faker.address.latitude()),
+    //                     longitude: parseFloat(faker.address.longitude())
+    //                 })
+    //             }),
+    //             phoneNumber: faker.phone.phoneNumber(),
+    //             gmapsId: faker.random.uuid()
+    //         });
+    //         places.push(place);
+    //     }
+    //     await Place.getRepository().save(places);
+    //     return places;
+    // }
 
-    async function seedDonations(users: User[], places: Place[]) {
+    async function seedDonations(users: User[]) {
         const donations: Donation[] = [];
         for (let bloodGroup of bloodGroups) {
             const requester = random(users);
@@ -115,8 +120,8 @@ faker.locale = "en_IND";
                 requester,
                 requiredAsap: requester.id % 2 == 0,
                 requiredBloodGroup: bloodGroup,
-                venue: random(places),
-                unitsRequired: faker.random.number({ min: 1, max: 5 }),
+                venue: fakePlace(),
+                unitsRequired: faker.random.number({min: 1, max: 5}),
                 requiredOn: (requester.id % 2 != 0) ? faker.date.between(
                     moment().toDate(),
                     moment().add(10, 'days').toDate(),
@@ -131,8 +136,8 @@ faker.locale = "en_IND";
 
 
     // start
+    // const places = await seedPlaces();
     const users = await seedUsers();
-    const places = await seedPlaces();
     const donors = await seedDonors(users);
-    const donations = await seedDonations(users, places);
+    const donations = await seedDonations(users);
 })();

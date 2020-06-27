@@ -1,29 +1,26 @@
 import moment from 'moment';
-import { plainToClass } from "class-transformer";
-import { findUserById } from "./user-service";
+import {plainToClass} from "class-transformer";
+import {findUserById} from "./user-service";
 import User from "../models/user";
-import Place from "../models/place";
 import Donor from "../models/donor";
 import Donation from "../models/donation";
-import { findOrCreatePlace } from "./place-service";
-import { getMatchingBloodGroups } from "../helpers/donation-helper";
+import {getPlace} from "./place-service";
+import {getMatchingBloodGroups} from "../helpers/donation-helper";
 
 export const createDonation = async (
     params: Donation
 ): Promise<Donation> => {
     const user: User = (await findUserById(params.requesterId))!;
-    const venue: Place = await findOrCreatePlace(params.venue.gmapsId);
-
     const donation = plainToClass(Donation, params);
     donation.requester = Promise.resolve(user);
-    donation.venue = venue;
+    donation.venue = await getPlace(params.venue.gmapsId);
     await donation.save();
 
     return donation;
 };
 
 export const userRequests = async (userId: number): Promise<Donation[] | undefined> => {
-    const requests = await Donation.find({ where: { requesterId: userId } });
+    const requests = await Donation.find({where: {requesterId: userId}});
     return requests;
 };
 
@@ -33,8 +30,8 @@ export const userRequest = async (userId: number, requestId: number): Promise<Do
 };
 
 export const searchDonors = async (userId: number,
-    requestId: number,
-    offset: number
+                                   requestId: number,
+                                   offset: number
 ): Promise<Donor[] | undefined> => {
     const donation = await Donation.findOne(requestId);
     if (!donation) {
@@ -46,7 +43,7 @@ export const searchDonors = async (userId: number,
     const lastDonatedDate = moment().subtract(3, 'months').toDate();
     const donors = await Donor.createQueryBuilder("donor")
         .where(`donor.blood_group in (${matchingBloodGroups})`)
-        .andWhere('donor.last_donated_on is NULL or donor.last_donated_on <= :lastDonatedDate', { lastDonatedDate })
+        .andWhere('donor.last_donated_on is NULL or donor.last_donated_on <= :lastDonatedDate', {lastDonatedDate})
         .skip(offset)
         .limit(100)
         .getMany()

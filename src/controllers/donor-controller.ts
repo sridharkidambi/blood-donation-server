@@ -9,8 +9,8 @@ import { ErrorCodes } from '../errors/error-codes';
 
 export const createDonor = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
+        const userId: number = req.params.userId as number;
         const params: Donor = plainToClass(Donor, req.body as object);
-        const userId = (req as any).payload.userId;
 
         const user = await findUserById(userId);
         const isDonor = await user!.isDonor();
@@ -29,6 +29,10 @@ export const getDonor = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const { userId } = req.params;
         const donor = await service.getDonor(userId);
-        res.json(donor);
+        if (!donor) {
+            res.json(null);
+        } else {
+            res.json(donor);
+        }
     }
 )

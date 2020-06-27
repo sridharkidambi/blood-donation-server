@@ -1,9 +1,10 @@
 import axios from 'axios';
 import config from "../config";
 import Place from "../models/place";
-import { plainToClass } from "class-transformer";
-import { AddressParam } from "../models/address";
-import { safeJoin } from "../common/utils";
+import {plainToClass} from "class-transformer";
+import {AddressParam} from "../models/address";
+import {safeJoin} from "../common/utils";
+import Coordinate from "../models/coordinate";
 
 
 export const searchPlace = async (input: string, location: string) => {
@@ -19,8 +20,8 @@ export const searchPlace = async (input: string, location: string) => {
     };
 
     try {
-        const placesResponse = await axios.get(url, { params });
-        const result = (placesResponse.data).predictions.map((prediction: any) => ({
+        const placesResponse = await axios.get(url, {params});
+        const result: Place[] = (placesResponse.data).predictions.map((prediction: any) => ({
             mainText: prediction.structured_formatting.main_text,
             secondaryText: prediction.structured_formatting.secondary_text,
             placeId: prediction.place_id,
@@ -33,46 +34,30 @@ export const searchPlace = async (input: string, location: string) => {
     }
 };
 
-export const placeDetail = async (placeId: string): Promise<Place> => {
+export const getPlace = async (gmapsId: string): Promise<Place> => {
     const url = 'https://maps.googleapis.com/maps/api/place/details/json';
 
     const params = {
         key: config.googleMapsKey,
-        place_id: placeId,
-        fields: 'name,place_id,international_phone_number,geometry,address_components',
+        place_id: gmapsId,
+        fields: 'name,place_id,international_phone_number,geometry,formatted_address',
     };
 
-    const response = await axios.get(url, { params });
-    const { data } = response;
+    const response = await axios.get(url, {params});
+    const {data} = response;
     if (data.status !== "OK") {
         throw new Error();
     }
-    return placeFromPlaceResult(data.result);
-};
+    const placeResult = data.result;
 
-export const findOrCreatePlace = async (gmapsId: string): Promise<Place> => {
-    const placeFromDb = await Place.findOne({ gmapsId });
-    if (placeFromDb) return placeFromDb;
-
-    const place = await placeDetail(gmapsId);
-    await place.save();
-    return place;
-};
-
-const placeFromPlaceResult = (json: any): Place => {
-    const address = addressFromPlaceResult(json.address_components);
-    address.coordinate = {
-        latitude: json.geometry.location.lat,
-        longitude: json.geometry.location.lng
-    };
-
-    const data = {
-        gmapsId: json.place_id,
-        name: json.name,
-        phoneNumber: json.international_phone_number,
-        address,
-    };
-    return plainToClass(Place, data);
+    return new Place({
+        gmapsId: gmapsId,
+        address: placeResult.formatted_address,
+        coordinate: new Coordinate({
+            latitude: placeResult.geometry.location.lat,
+            longitude: placeResult.geometry.location.lng
+        }),
+    });
 };
 
 const addressFromPlaceResult = (components: {

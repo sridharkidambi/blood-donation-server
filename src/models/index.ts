@@ -8,7 +8,6 @@ export const models = {
     User: User,
     Donor: Donor,
     Donation: Donation,
-    Place: Place,
     DonationDonor: DonationDonor
 };
-export default [User, Donor, Donation, Place, DonationDonor];
+export default [User, Donor, Donation, DonationDonor];

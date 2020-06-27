@@ -1,34 +1,27 @@
-import BaseEntity from './base-entity';
-import { Entity, Column } from 'typeorm';
-import Address from "./address";
+import {Column, Entity} from 'typeorm';
+import Coordinate from './coordinate';
 
 interface PlaceParams {
-    name: string,
-    address?: Address,
-    phoneNumber?: string,
+    address: string
+    coordinate: Coordinate
     gmapsId: string
 }
 
 @Entity()
-export default class Place extends BaseEntity {
+export default class Place {
     constructor(params?: PlaceParams) {
-        super();
         if (!params) return;
-        this.name = params.name;
         this.address = params.address;
-        this.phoneNumber = params.phoneNumber;
         this.gmapsId = params.gmapsId;
+        this.coordinate = params.coordinate;
     }
 
     @Column()
-    name!: string;
+    address!: string;
 
-    @Column(type => Address, { prefix: 'address_' })
-    address?: Address;
+    @Column(type => Coordinate, {prefix: ''})
+    coordinate!: Coordinate;
 
-    @Column({ nullable: true })
-    phoneNumber?: string;
-
-    @Column({ unique: true })
+    @Column()
     gmapsId!: string;
 }

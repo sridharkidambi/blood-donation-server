@@ -3,7 +3,7 @@ import * as controller from '../controllers/donor-controller';
 
 export default [
     {
-        path: '/donor',
+        path: '/users/:userId/donor',
         method: 'post',
         handler: [validator.createDonorValidator, controller.createDonor]
     },

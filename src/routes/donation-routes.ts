@@ -5,7 +5,7 @@ export default [
     {
         path: '/users/:userId/requests',
         method: 'post',
-        handler: [validator.createDonationValidator, controller.createRequest]
+        handler: [validator.createDonationValidator, controller.createDonation]
     },
     {
         path: '/users/:userId/requests',

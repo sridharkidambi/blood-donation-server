@@ -1,18 +1,19 @@
 import BaseEntity from './base-entity';
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import {Column, Entity, JoinColumn, OneToMany, OneToOne} from 'typeorm';
 import User from './user';
 import BloodGroup from './blood-group';
 import Gender from './gender';
-import Address from "./address";
 import DonationDonor from "./donation-donors";
+import Place from "./place";
 
 interface DonorParams {
     userId: number;
-    address: Address;
     gender: Gender;
+    residence: Place;
     dob: Date;
     bloodGroup: BloodGroup;
-    lastDonatedOn: Date | undefined;
+    available: boolean;
+    lastDonatedOn?: Date;
 }
 
 @Entity()
@@ -21,9 +22,10 @@ export default class Donor extends BaseEntity {
         super();
         if (!params) return;
         this.userId = params.userId;
-        this.address = params.address;
+        this.residence = params.residence;
         this.gender = params.gender;
         this.dob = params.dob;
+        this.available = params.available;
         this.bloodGroup = params.bloodGroup;
         this.lastDonatedOn = params.lastDonatedOn;
     }
@@ -33,14 +35,14 @@ export default class Donor extends BaseEntity {
         cascade: true,
         onDelete: 'CASCADE'
     })
-    @JoinColumn({ name: 'user_id' })
+    @JoinColumn({name: 'user_id'})
     user!: User;
 
     @Column()
     userId!: number;
 
-    @Column(type => Address, { prefix: 'address_' })
-    address!: Address;
+    @Column(type => Place, {prefix: 'residence_'})
+    residence!: Place;
 
     @Column()
     gender!: Gender;
@@ -51,8 +53,11 @@ export default class Donor extends BaseEntity {
     @Column()
     bloodGroup!: BloodGroup;
 
-    @Column({ nullable: true })
+    @Column({nullable: true})
     lastDonatedOn?: Date;
+
+    @Column({nullable: false, default: true})
+    available!: boolean;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donor)
     donations!: DonationDonor[];

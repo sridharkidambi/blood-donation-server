@@ -5,7 +5,7 @@ import * as service from "../service/donation-service";
 import { currentUserId } from "../common/helper";
 import Donation from '../models/donation';
 
-export const createRequest = asyncMiddleware(
+export const createDonation = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const params: Donation = req.body;
         params.requesterId = currentUserId(req);

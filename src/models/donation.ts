@@ -1,5 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
-import { Exclude } from "class-transformer";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
+import {Exclude} from "class-transformer";
 import BaseEntity from './base-entity';
 import User from './user';
 import Place from './place';
@@ -39,16 +39,12 @@ export default class Donation extends BaseEntity {
     @Column()
     requesterId!: number;
 
-    @ManyToOne(type => User, user => user.requests, { nullable: false })
+    @ManyToOne(type => User, user => user.requests, {nullable: false})
     @JoinColumn()
     @Exclude()
     requester!: Promise<User>;
 
-    @ManyToOne(type => Place, {
-        nullable: false,
-        eager: true,
-    })
-    @JoinColumn()
+    @Column(type => Place, {prefix: 'venue'})
     venue!: Place;
 
     @Column()
@@ -60,10 +56,10 @@ export default class Donation extends BaseEntity {
     @Column()
     unitsRequired!: number;
 
-    @Column({ type: 'timestamp', nullable: true })
+    @Column({type: 'timestamp', nullable: true})
     requiredOn?: Date;
 
-    @Column({ nullable: true })
+    @Column({nullable: true})
     requiredAsap!: boolean;
 
     @Column()
@@ -72,7 +68,7 @@ export default class Donation extends BaseEntity {
     @Column()
     attenderPhoneNumber!: string;
 
-    @Column({ type: 'text', nullable: true })
+    @Column({type: 'text', nullable: true})
     notes?: string;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donation)

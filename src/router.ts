@@ -9,7 +9,7 @@ import {slowDown} from './middlewares/common';
 const router = express();
 router.use(slowDown(500)); // slow down the request for testing
 applyMiddlewares(middlewares, router);
-applyRoutes(routes, router, verify, '/api/v1');
+applyRoutes(routes, router, verify, '/api');
 applyMiddlewares(errorHandlers, router);
 
 export default router;

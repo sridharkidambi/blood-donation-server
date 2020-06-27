@@ -15,7 +15,7 @@ export const searchPlace = asyncMiddleware(
 export const placeDetail = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const placeId = req.query.place_id;
-        const place = await service.placeDetail(placeId);
+        const place = await service.getPlace(placeId);
         res.json(place);
     }
 );
