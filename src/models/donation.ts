@@ -72,5 +72,5 @@ export default class Donation extends BaseEntity {
     notes?: string;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donation)
-    public donors!: DonationDonor[];
+    donationDonors!: DonationDonor[];
 }

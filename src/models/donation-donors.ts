@@ -1,34 +1,49 @@
-import {Column, Entity, ManyToOne} from "typeorm";
-
+import {Column, Entity, JoinTable, ManyToOne} from "typeorm";
 import BaseEntity from "./base-entity";
 import Donation from "./donation";
 import Donor from "./donor";
 
+interface DonationDonorParams {
+    donor: Donor;
+    donorId: number;
+    donation: Donation;
+    donationId: number;
+    status: DonationDonorStatus
+}
+
+export enum DonationDonorStatus {
+    INITIAL = 'initial',
+    UNAVAILALBLE = 'unavailable',
+    AVAILABLE = 'available',
+    DONATED = 'donated'
+}
+
 @Entity()
 export default class DonationDonor extends BaseEntity {
+    constructor(params: DonationDonorParams) {
+        super();
+        if (!params) return;
+        this.donor = params.donor;
+        this.donorId = params.donorId;
+        this.donation = params.donation;
+        this.donationId = params.donationId;
+        this.status = params.status;
+    }
+
     @Column()
     donationId!: number;
 
     @Column()
     donorId!: number;
 
-    @Column()
-    status!: DonorStatus;
+    @Column({default: DonationDonorStatus.INITIAL})
+    status!: DonationDonorStatus;
 
-    @Column()
-    availableAt!: Date;
-
-    @ManyToOne(type => Donation, donation => donation.donors)
+    @JoinTable()
+    @ManyToOne(type => Donation, donation => donation.donationDonors)
     donation!: Donation;
 
-    @ManyToOne(type => Donor, donor => donor.donations)
+    @JoinTable()
+    @ManyToOne(type => Donor, donor => donor.donationDonors)
     donor!: Donor;
-}
-
-export enum DonorStatus {
-    REQUESTED = 'requested',
-    DECLINED = 'declined',
-    ACCEPTED = 'accepted',
-    DONATED = 'donated',
-    CANCELLED = 'cancelled'
 }

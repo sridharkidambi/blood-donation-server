@@ -56,9 +56,9 @@ export default class Donor extends BaseEntity {
     @Column({nullable: true})
     lastDonatedOn?: Date;
 
-    @Column({nullable: false, default: true})
+    @Column({nullable: false, default: () => "true"})
     available!: boolean;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donor)
-    donations!: DonationDonor[];
+    donationDonors!: DonationDonor[];
 }

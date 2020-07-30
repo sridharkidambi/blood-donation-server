@@ -6,6 +6,11 @@ import Donor from "../models/donor";
 import Donation from "../models/donation";
 import {getPlace} from "./place-service";
 import {getMatchingBloodGroups} from "../helpers/donation-helper";
+import * as dao from '../dao/donation-dao';
+import DonationDonor from "../models/donation-donors";
+import {DonationDto} from "../models/dto/donation-dto";
+import {DonationDonorDto} from "../models/dto/donation-donor-dto";
+import HttpError from "../errors/http-error";
 
 export const createDonation = async (
     params: Donation
@@ -24,9 +29,43 @@ export const userRequests = async (userId: number): Promise<Donation[] | undefin
     return requests;
 };
 
-export const userRequest = async (userId: number, requestId: number): Promise<Donation | undefined> => {
-    const donation = await Donation.findOne(requestId);
-    return donation;
+export const userRequest = async (userId: number, requestId: number): Promise<DonationDto> => {
+    const donation: Donation | undefined = await dao.getDonation(requestId);
+    if (donation == undefined) {
+        throw HttpError.notFound("not_found", `Donation with id ${requestId} not found`);
+    }
+    const donors: DonationDonorDto[] = donation.donationDonors.map((dd: DonationDonor) => {
+        const ddd: DonationDonorDto = {
+            userId: dd.donor.user.id,
+            available: dd.donor.available,
+            bloodGroup: dd.donor.bloodGroup,
+            dob: dd.donor.dob,
+            donationId: donation.id,
+            donorId: dd.donor.id,
+            emailAddress: dd.donor.user.emailAddress,
+            gender: dd.donor.gender,
+            lastDonatedOn: dd.donor.lastDonatedOn,
+            name: dd.donor.user.name,
+            phoneNumber: dd.donor.user.phoneNumber,
+            residence: dd.donor.residence,
+            status: dd.status
+        };
+        return ddd;
+    });
+    const donationDto: DonationDto = {
+        attenderName: donation.attenderName,
+        attenderPhoneNumber: donation.attenderPhoneNumber,
+        notes: donation.notes,
+        patientName: donation.patientName,
+        requester: await donation.requester,
+        requiredAsap: donation.requiredAsap,
+        requiredBloodGroup: donation.requiredBloodGroup,
+        requiredOn: donation.requiredOn,
+        unitsRequired: donation.unitsRequired,
+        venue: donation.venue,
+        donors: donors
+    };
+    return donationDto;
 };
 
 export const searchDonors = async (userId: number,
