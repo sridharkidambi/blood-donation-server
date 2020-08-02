@@ -4,7 +4,7 @@ import { findUserByEmail, findUserByPhoneNumber } from '../service/user-service'
 
 export const getUserValidator = validate(param('user_id').isNumeric());
 
-const phoneNumberValidator = body('phoneNumber').isMobilePhone('en-IN');
+const phoneNumberValidator = body('phoneNumber').isMobilePhone('en-IN', { strictMode: false });
 
 const uniquePhoneNumberValidator = body('phoneNumber')
     .isMobilePhone('en-IN')

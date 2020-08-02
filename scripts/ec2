@@ -1,1 +1,1 @@
-sh -i ~/.creds/blood_donation.pem ec2-user@ec2-54-169-71-113.ap-southeast-1.compute.amazonaws.com
+ssh -i ~/.creds/blood_donation.pem ec2-user@ec2-54-169-71-113.ap-southeast-1.compute.amazonaws.com

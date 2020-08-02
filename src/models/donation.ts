@@ -56,7 +56,10 @@ export default class Donation extends BaseEntity {
     @Column()
     unitsRequired!: number;
 
-    @Column({type: 'timestamp', nullable: true})
+    @Column({
+        type: 'timestamp',
+        nullable: true,
+    })
     requiredOn?: Date;
 
     @Column({nullable: true})

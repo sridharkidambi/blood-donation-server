@@ -5,4 +5,4 @@ coverage/
 .idea/
 .vscode/
 .env.production
-.DS_Store/
+src/.DS_Store
