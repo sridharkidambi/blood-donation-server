@@ -1,5 +1,5 @@
 import BaseEntity from './base-entity';
-import {Column, Entity, JoinColumn, OneToMany, OneToOne} from 'typeorm';
+import {BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne} from 'typeorm';
 import User from './user';
 import BloodGroup from './blood-group';
 import Gender from './gender';
@@ -56,9 +56,14 @@ export default class Donor extends BaseEntity {
     @Column({nullable: true})
     lastDonatedOn?: Date;
 
-    @Column({nullable: false, default: () => "true"})
+    @Column({nullable: true, default: () => "true"})
     available!: boolean;
 
     @OneToMany(type => DonationDonor, donationDonor => donationDonor.donor)
     donationDonors!: DonationDonor[];
+
+    @BeforeInsert()
+    beforeInsert() {
+        this.available = true;
+    }
 }
