@@ -4,14 +4,14 @@ export interface DonationDonorDto {
     userId: number;
     donorId: number;
     donationId: number;
-    name: String;
-    emailAddress: String;
-    phoneNumber: String;
+    name: string;
+    emailAddress: string;
+    phoneNumber: string;
     residence: Place;
-    gender: String;
+    gender: string;
     dob: Date;
-    bloodGroup: String;
+    bloodGroup: string;
     lastDonatedOn?: Date;
     available: boolean;
-    status: String;
+    status: string;
 }

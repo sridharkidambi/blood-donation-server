@@ -36,10 +36,10 @@ export const getUserRequest = asyncMiddleware(
     }
 );
 
-export const searchDonors = asyncMiddleware(
+export const suitableDonors = asyncMiddleware(
     async (req: Request, res: Response, next: NextFunction) => {
         const {userId, requestId, offset = 0} = req.params;
-        const results = await service.searchDonors(userId, requestId, offset);
+        const results = await service.getSuitableDonors(requestId, offset);
         res.json(results);
     }
 )

@@ -44,7 +44,7 @@ export default class Donation extends BaseEntity {
     @Exclude()
     requester!: Promise<User>;
 
-    @Column(type => Place, {prefix: 'venue'})
+    @Column(type => Place, {prefix: 'venue_'})
     venue!: Place;
 
     @Column()

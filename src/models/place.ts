@@ -7,7 +7,6 @@ interface PlaceParams {
     gmapsId: string
 }
 
-@Entity()
 export default class Place {
     constructor(params?: PlaceParams) {
         if (!params) return;

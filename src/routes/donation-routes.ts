@@ -18,8 +18,8 @@ export default [
         handler: [controller.getUserRequest]
     },
     {
-        path: '/users/:userId/requests/:requestId/search_donors',
+        path: '/users/:userId/requests/:requestId/suitable-donors',
         method: 'get',
-        handler: [controller.searchDonors]
+        handler: [controller.suitableDonors]
     }
 ]

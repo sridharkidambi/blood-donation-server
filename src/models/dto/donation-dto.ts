@@ -4,6 +4,7 @@ import BloodGroup from "../blood-group";
 import {DonationDonorDto} from "./donation-donor-dto";
 
 export interface DonationDto {
+    id: number,
     requester: User,
     venue: Place,
     patientName: string,

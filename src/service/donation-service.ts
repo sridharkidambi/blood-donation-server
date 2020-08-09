@@ -2,7 +2,6 @@ import moment from 'moment';
 import {plainToClass} from "class-transformer";
 import {findUserById} from "./user-service";
 import User from "../models/user";
-import Donor from "../models/donor";
 import Donation from "../models/donation";
 import {getPlace} from "./place-service";
 import {getMatchingBloodGroups} from "../helpers/donation-helper";
@@ -11,6 +10,8 @@ import DonationDonor from "../models/donation-donors";
 import {DonationDto} from "../models/dto/donation-dto";
 import {DonationDonorDto} from "../models/dto/donation-donor-dto";
 import HttpError from "../errors/http-error";
+import {SearchDonorDto} from "../models/dto/search-donor-dto";
+import Coordinate from "../models/coordinate";
 
 export const createDonation = async (
     params: Donation
@@ -53,6 +54,7 @@ export const userRequest = async (userId: number, requestId: number): Promise<Do
         return ddd;
     });
     const donationDto: DonationDto = {
+        id: donation.id,
         attenderName: donation.attenderName,
         attenderPhoneNumber: donation.attenderPhoneNumber,
         notes: donation.notes,
@@ -68,23 +70,36 @@ export const userRequest = async (userId: number, requestId: number): Promise<Do
     return donationDto;
 };
 
-export const searchDonors = async (userId: number,
-                                   requestId: number,
-                                   offset: number
-): Promise<Donor[] | undefined> => {
+export const getSuitableDonors = async (requestId: number, offset: number):
+    Promise<SearchDonorDto[] | undefined> => {
     const donation = await Donation.findOne(requestId);
     if (!donation) {
         return undefined;
+        throw HttpError.notFound("missing_donation_request", "Donation request does not exist");
     }
-    const matchingBloodGroups = getMatchingBloodGroups(donation.requiredBloodGroup)
-        .map(bg => `'${bg}'`)
-        .join(",");
-    const lastDonatedDate = moment().subtract(3, 'months').toDate();
-    const donors = await Donor.createQueryBuilder("donor")
-        .where(`donor.blood_group in (${matchingBloodGroups})`)
-        .andWhere('donor.last_donated_on is NULL or donor.last_donated_on <= :lastDonatedDate', {lastDonatedDate})
-        .skip(offset)
-        .limit(100)
-        .getMany()
+    let result: any[] = await dao.getDonors({
+        bloodGroups: getMatchingBloodGroups(donation.requiredBloodGroup),
+        minLastDonatedOn: moment().subtract(3, 'months').format("yyyy-MM-DD"),
+        coordinate: donation.venue.coordinate,
+        limit: 100,
+        offset: offset
+    }) || [];
+    const donors: SearchDonorDto[] = [];
+    result.forEach(item => {
+        const donor: SearchDonorDto = {
+            id: item.donor_id,
+            name: item.user_name,
+            gender: item.donor_gender,
+            bloodGroup: item.donor_blood_group,
+            emailAddress: item.user_email_address,
+            phoneNumber: item.user_phone_number,
+            coordinate: new Coordinate({
+                latitude: item.donor_residence_latitude,
+                longitude: item.donor_residence_longitude
+            }),
+            distance: +(item.distance / 1000).toFixed(2)
+        };
+        donors.push(donor);
+    });
     return donors;
 }
