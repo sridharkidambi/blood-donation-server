@@ -47,6 +47,21 @@ export const login = async (phoneNumber: string, password: string) => {
     return userData;
 };
 
+
+export const vaildatePhoneNumber = async (phoneNumber: string) => {
+    const user = await findUserByPhoneNumber(phoneNumber);
+
+    if (!user) return null;
+    
+    user.phone_verified=true;
+
+  
+
+    const userData = user.save();
+
+    return userData;
+};
+
 export const loginViaEmail = async (
     phoneNumber: string,
     password: string

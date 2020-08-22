@@ -52,7 +52,7 @@ function fakePlace(): Place {
                 name: firstName + ' ' + lastName,
                 emailAddress: (firstName + lastName + '@example.com').toLowerCase(),
                 phoneNumber: `99999999${i <= 9 ? '0' : ''}${i}`,
-                password: password
+                password: password,phone_verified: false
             });
             users.push(user);
         }

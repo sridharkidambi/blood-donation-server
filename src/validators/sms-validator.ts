@@ -6,3 +6,9 @@ export const otpRequestValidator = validate(
         .isMobilePhone('en-IN')
         .withMessage('Phone number is required for sending OTP')
 );
+
+export const otpCodeValidator = validate(
+    body('phoneNumber')
+        .isMobilePhone('en-IN')
+        .withMessage('Phone number is required for sending OTP')
+);

@@ -9,6 +9,8 @@ interface UserParams {
     emailAddress: string;
     phoneNumber: string;
     password: string;
+    phone_verified:boolean
+    
 }
 
 @Entity()
@@ -20,6 +22,7 @@ export default class User extends BaseEntity {
         this.emailAddress = params.emailAddress;
         this.phoneNumber = params.phoneNumber;
         this.password = params.password;
+        this.phone_verified = params.phone_verified;
     }
 
     @Column()
@@ -30,6 +33,9 @@ export default class User extends BaseEntity {
 
     @Column({ unique: true })
     phoneNumber!: string;
+
+    @Column({ unique: false })
+    phone_verified!: boolean
 
     @Column({ nullable: true })
     @Exclude({ toPlainOnly: true })

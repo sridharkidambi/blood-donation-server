@@ -15,6 +15,7 @@ export class Config {
     dbPort: number;
     msg91AuthKey: string;
     googleMapsKey: string;
+    applicationId: string;
 
     constructor() {
         this.env = process.env.NODE_ENV!;
@@ -27,6 +28,7 @@ export class Config {
         this.dbPort = +process.env.DB_PORT!;
         this.msg91AuthKey = process.env.MSG91_AUTH_KEY!;
         this.googleMapsKey = process.env.GOOGLE_MAPS_KEY!;
+        this.applicationId = process.env.applicationId!;
     }
 
     get isDevelopment() {
@@ -48,7 +50,8 @@ export class Config {
             process.env.DB_USER,
             process.env.DB_PASSWORD,
             process.env.DB_HOST,
-            process.env.DB_PORT
+            process.env.DB_PORT,
+            process.env.applicationId
         );
     }
 }
